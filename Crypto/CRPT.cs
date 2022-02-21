@@ -38,44 +38,6 @@ namespace Crypto
             {
                 return JsonSerializer.Serialize(this);
             }
-
-            public static void Get()
-            {
-                var client = new RestClient(BaseURL);
-                client.Timeout = -1;
-                var request = new RestRequest(Method.GET);
-                request.Resource = "/auth/cert/key";
-                request.AddHeader("Accept", "application/json");
-                request.AddHeader("Content-Type", "application/json");
-
-                IRestResponse response = null;
-
-                try
-                {
-                    response = client.Execute(request);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    return;
-                }
-
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    MessageBox.Show(response.ErrorMessage);
-                    return;
-                }
-
-                try
-                {
-                    authenticationData = JsonSerializer.Deserialize<AuthenticationData>(response.Content);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    return;
-                }
-            }
         }
         
         private static string BaseURL = "https://shoes.sandbox.crpt.tech/api/v3";
