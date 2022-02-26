@@ -19,16 +19,16 @@ namespace Crypto
         {
             InitializeComponent();
 
-            List<CryptoClass.UserCert> userCerts = CryptoClass.GetCertificates();
+            List<CryptoClass.Certificate> userCerts = CryptoClass.GetCertificates();
 
             if (userCerts.Count > 0)
             {
-                foreach (CryptoClass.UserCert cert in userCerts)
+                foreach (CryptoClass.Certificate cert in userCerts)
                     comboBox1.Items.Add(cert);
 
                 comboBox1.SelectedIndex = 0;
 
-                CryptoClass.UserCert selectedCert = (CryptoClass.UserCert)comboBox1.Items[comboBox1.SelectedIndex];
+                CryptoClass.Certificate selectedCert = (CryptoClass.Certificate)comboBox1.Items[comboBox1.SelectedIndex];
 
                 certificate2 = selectedCert.certificate;
             }
@@ -36,6 +36,10 @@ namespace Crypto
 
         private void btn_sign_Click(object sender, EventArgs e)
         {
+            //Hide();
+            //new Form_Auth().ShowDialog();
+            //Show();
+
             richTextBox1.Text = String.Empty;
 
             if (string.IsNullOrEmpty(textBox1.Text) && certificate2 == null)
@@ -67,7 +71,7 @@ namespace Crypto
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CryptoClass.UserCert selectedCert = (CryptoClass.UserCert)comboBox1.Items[comboBox1.SelectedIndex];
+            CryptoClass.Certificate selectedCert = (CryptoClass.Certificate)comboBox1.Items[comboBox1.SelectedIndex];
 
             certificate2 = selectedCert.certificate;
         }
