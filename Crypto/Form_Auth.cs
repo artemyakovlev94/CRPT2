@@ -32,7 +32,11 @@ namespace Crypto
             if (cb_certificates.SelectedItem == null)
                 return;
 
-            MessageBox.Show(cb_certificates.SelectedItem.ToString());
+            CryptoClass.Certificate cert = (CryptoClass.Certificate)cb_certificates.SelectedItem;
+
+            Properties.Settings.Default.cert_sn = cert.certificate.GetSerialNumberString();
+
+            Hide();
         }
 
         private void Form_Auth_Load(object sender, EventArgs e)
@@ -43,6 +47,26 @@ namespace Crypto
             {
                 foreach (CryptoClass.Certificate cert in userCerts)
                     cb_certificates.Items.Add(cert);
+            }
+        }
+
+        private void cb_certificates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_certificates.SelectedItem == null)
+            {
+                rtb_cert_data.Text = String.Empty;
+            }
+            else
+            {
+                CryptoClass.Certificate certificate = (CryptoClass.Certificate)cb_certificates.SelectedItem;
+
+                rtb_cert_data.Text = String.Format("Владелец: {1}{0}ИНН: {2}{0}{3}{0}Адрес: {4}", 
+                    Environment.NewLine,
+                    certificate.SubjectIndividualName,
+                    certificate.SubjectINN,
+                    (string.IsNullOrEmpty(certificate.SubjectOGRNIP) ? $"ОГРН: {certificate.SubjectOGRN}" : $"ОГРНИП: {certificate.SubjectOGRNIP}"),
+                    certificate.SubjectAddress
+                );
             }
         }
     }

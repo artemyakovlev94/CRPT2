@@ -37,7 +37,7 @@ namespace Crypto
 
             foreach (var c in store.Certificates)
             {
-                if (string.IsNullOrEmpty(c.SubjectName.Name))
+                if (string.IsNullOrEmpty(c.SubjectName.Name) || !c.Verify() || !c.HasPrivateKey)
                     continue;
 
                 // Наименование из сертификата

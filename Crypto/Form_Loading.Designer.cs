@@ -67,6 +67,7 @@
             this.Name = "Form_Loading";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_Loading";
+            this.Activated += new System.EventHandler(this.Form_Loading_Activated);
             this.ResumeLayout(false);
             this.PerformLayout();
 

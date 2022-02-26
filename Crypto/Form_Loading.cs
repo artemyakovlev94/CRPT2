@@ -16,25 +16,29 @@ namespace Crypto
         public Form_Loading()
         {
             InitializeComponent();
-            label_loading_text.Text = "И затем создается таймер. Данная перегрузка конструктора таймера принимает четыре параметра:";
-
-            if (string.IsNullOrEmpty(Properties.Settings.Default.cert_sn) || string.IsNullOrEmpty(Properties.Settings.Default.token))
-            {
-                Hide();
-                new Form_Auth().ShowDialog();
-                Show();
-            }
-            else
-            {
-                Hide();
-                new Crypto().ShowDialog();
-                Show();
-            }
+            label_loading_text.Text = String.Empty;
         }
 
         private void button_Close_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void Form_Loading_Activated(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(Properties.Settings.Default.cert_sn))
+            {
+                Hide();
+                new Form_Auth().ShowDialog();
+                Show();
+            }
+
+            label_loading_text.Text = Properties.Settings.Default.cert_sn;
+
+            if (string.IsNullOrEmpty(Properties.Settings.Default.token))
+            {
+                // Получить токен
+            }
         }
     }
 }
