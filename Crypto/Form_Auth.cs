@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Crypto.Crypto;
+using DevExpress.XtraSplashScreen;
 
 namespace Crypto
 {
     public partial class Form_Auth : Form
     {
+        CryptoClass cryptoClass = new CryptoClass();
+
         public Form_Auth()
         {
             InitializeComponent();
@@ -32,40 +31,64 @@ namespace Crypto
             if (cb_certificates.SelectedItem == null)
                 return;
 
-            CryptoClass.Certificate cert = (CryptoClass.Certificate)cb_certificates.SelectedItem;
+            SignerCertData signerCertSelected = (SignerCertData)cb_certificates.SelectedItem;
 
-            Properties.Settings.Default.cert_sn = cert.certificate.GetSerialNumberString();
+            Properties.Settings.Default.cert_sn = signerCertSelected.serial_number;
 
-            Hide();
+            CRPT.Authentication authentication = new CRPT.Authentication();
+
+            IOverlaySplashScreenHandle ShowProgressPanel()
+            {
+                return SplashScreenManager.ShowOverlayForm(this);
+            }
+            void CloseProgressPanel(IOverlaySplashScreenHandle handlew)
+            {
+                if (handlew != null)
+                    SplashScreenManager.CloseOverlayForm(handlew);
+            }
+
+            IOverlaySplashScreenHandle handle = null;
+            try
+            {
+                handle = ShowProgressPanel();
+                // Launch a long-running operation while
+                // the Overlay Form overlaps the current form.
+
+                CRPT cRPT = new CRPT();
+                authentication = cRPT.GetAuthenticationToken(signerCertSelected.certificate);
+                
+            }
+            finally
+            {
+                CloseProgressPanel(handle);
+                MessageBox.Show(authentication.ToString());
+            }
         }
 
         private void Form_Auth_Load(object sender, EventArgs e)
         {
-            List<CryptoClass.Certificate> userCerts = CryptoClass.GetCertificates();
+            List<SignerCertData> signerCerts = cryptoClass.GetSignerCerts();
 
-            if (userCerts.Count > 0)
-            {
-                foreach (CryptoClass.Certificate cert in userCerts)
-                    cb_certificates.Items.Add(cert);
-            }
+            foreach (var signerCert in signerCerts)
+                cb_certificates.Items.Add(signerCert);
         }
 
         private void cb_certificates_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cb_certificates.SelectedItem == null)
             {
-                rtb_cert_data.Text = String.Empty;
+                rtb_cert_data.Text = string.Empty;
             }
             else
             {
-                CryptoClass.Certificate certificate = (CryptoClass.Certificate)cb_certificates.SelectedItem;
+                SignerCertData signerCertSelected = (SignerCertData)cb_certificates.SelectedItem;
 
-                rtb_cert_data.Text = String.Format("Владелец: {1}{0}ИНН: {2}{0}{3}{0}Адрес: {4}", 
+                rtb_cert_data.Text = string.Format("Владелец: {1}{0}ИНН: {2}{0}{3}{0}Адрес: {4}",
                     Environment.NewLine,
-                    certificate.SubjectIndividualName,
-                    certificate.SubjectINN,
-                    (string.IsNullOrEmpty(certificate.SubjectOGRNIP) ? $"ОГРН: {certificate.SubjectOGRN}" : $"ОГРНИП: {certificate.SubjectOGRNIP}"),
-                    certificate.SubjectAddress
+                    signerCertSelected.subject.IndividualName,
+                    signerCertSelected.subject.INN,
+                    signerCertSelected.subject.INN.Length == 10 ? $"ОГРН: {signerCertSelected.subject.OGRN}" : $"ОГРНИП: {signerCertSelected.subject.OGRN}",
+                    signerCertSelected.subject.Address
                 );
             }
         }

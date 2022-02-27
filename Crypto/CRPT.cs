@@ -8,12 +8,15 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using Crypto.Crypto;
 
 namespace Crypto
 {
     internal class CRPT
     {
-        public class Authentication
+        CryptoClass cryptoClass = new CryptoClass();
+
+        internal class Authentication
         {
             public string token { get; set; }
             public string code { get; set; }
@@ -23,13 +26,13 @@ namespace Crypto
             public override string ToString()
             {
                 if (code == null)
-                    return token;
+                    return $"Bearer {token}";
                 else
                     return error_message;
             }
         }
 
-        public class AuthenticationData
+        private class AuthenticationData
         {
             public string uuid { get; set; }
             public string data { get; set; }
@@ -40,12 +43,12 @@ namespace Crypto
             }
         }
         
-        private static string BaseURL = "https://shoes.sandbox.crpt.tech/api/v3";
-        private static AuthenticationData authenticationData = new AuthenticationData();
-        private static Authentication authentication = new Authentication();
-        public static X509Certificate2 certificate = null;
+        private const string BaseURL = "https://shoes.sandbox.crpt.tech/api/v3";
+        private AuthenticationData authenticationData = new AuthenticationData();
+        private Authentication authentication = new Authentication();
+        public X509Certificate2 certificate = null;
 
-        public static Authentication GetAuthenticationToken(X509Certificate2 cert = null)
+        internal Authentication GetAuthenticationToken(X509Certificate2 cert = null)
         {
             if (cert != null)
                 certificate = cert;
@@ -59,7 +62,7 @@ namespace Crypto
             {
                 Encoding encoding = Encoding.Unicode;
 
-                byte[] encodedSignature = CryptoClass.SingMsg(encoding.GetBytes(authenticationData.data), certificate, false);
+                byte[] encodedSignature = cryptoClass.SingData(encoding.GetBytes(authenticationData.data), certificate, false);
 
                 if (encodedSignature == null)
                     return authentication;
@@ -111,7 +114,7 @@ namespace Crypto
             return authentication;
         }
 
-        private static void GetAuthenticationData()
+        private void GetAuthenticationData()
         {
             var client = new RestClient(BaseURL);
             client.Timeout = -1;
@@ -125,21 +128,13 @@ namespace Crypto
             try
             {
                 response = client.Execute(request);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
 
-            if (response.StatusCode != HttpStatusCode.OK)
-            {
-                MessageBox.Show(response.ErrorMessage);
-                return;
-            }
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    MessageBox.Show(response.ErrorMessage);
+                    return;
+                }
 
-            try
-            {
                 authenticationData = JsonSerializer.Deserialize<AuthenticationData>(response.Content);
             }
             catch (Exception ex)

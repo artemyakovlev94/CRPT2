@@ -86,9 +86,9 @@
             this.label_certificate.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label_certificate.Location = new System.Drawing.Point(27, 149);
             this.label_certificate.Name = "label_certificate";
-            this.label_certificate.Size = new System.Drawing.Size(124, 24);
+            this.label_certificate.Size = new System.Drawing.Size(219, 24);
             this.label_certificate.TabIndex = 3;
-            this.label_certificate.Text = "Сертификат:";
+            this.label_certificate.Text = "Выберите сертификат:";
             // 
             // rtb_cert_data
             // 
