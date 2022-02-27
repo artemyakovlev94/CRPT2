@@ -41,9 +41,9 @@
             // btn_Close
             // 
             this.btn_Close.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_Close.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_Close.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btn_Close.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.btn_Close.Location = new System.Drawing.Point(363, 349);
+            this.btn_Close.Location = new System.Drawing.Point(363, 362);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(129, 37);
             this.btn_Close.TabIndex = 2;
@@ -54,9 +54,9 @@
             // btn_sign_in
             // 
             this.btn_sign_in.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_sign_in.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_sign_in.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btn_sign_in.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.btn_sign_in.Location = new System.Drawing.Point(211, 349);
+            this.btn_sign_in.Location = new System.Drawing.Point(211, 362);
             this.btn_sign_in.Name = "btn_sign_in";
             this.btn_sign_in.Size = new System.Drawing.Size(129, 37);
             this.btn_sign_in.TabIndex = 1;
@@ -72,7 +72,7 @@
             this.cb_certificates.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Bold);
             this.cb_certificates.ForeColor = System.Drawing.SystemColors.GrayText;
             this.cb_certificates.FormattingEnabled = true;
-            this.cb_certificates.Location = new System.Drawing.Point(31, 176);
+            this.cb_certificates.Location = new System.Drawing.Point(31, 189);
             this.cb_certificates.Name = "cb_certificates";
             this.cb_certificates.Size = new System.Drawing.Size(641, 32);
             this.cb_certificates.Sorted = true;
@@ -82,11 +82,11 @@
             // label_certificate
             // 
             this.label_certificate.AutoSize = true;
-            this.label_certificate.Font = new System.Drawing.Font("Franklin Gothic Medium", 14.25F, System.Drawing.FontStyle.Bold);
+            this.label_certificate.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_certificate.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.label_certificate.Location = new System.Drawing.Point(27, 149);
+            this.label_certificate.Location = new System.Drawing.Point(27, 162);
             this.label_certificate.Name = "label_certificate";
-            this.label_certificate.Size = new System.Drawing.Size(219, 24);
+            this.label_certificate.Size = new System.Drawing.Size(236, 23);
             this.label_certificate.TabIndex = 3;
             this.label_certificate.Text = "Выберите сертификат:";
             // 
@@ -94,8 +94,9 @@
             // 
             this.rtb_cert_data.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(234)))), ((int)(((byte)(11)))));
             this.rtb_cert_data.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtb_cert_data.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rtb_cert_data.Location = new System.Drawing.Point(163, 227);
+            this.rtb_cert_data.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtb_cert_data.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.rtb_cert_data.Location = new System.Drawing.Point(163, 240);
             this.rtb_cert_data.Name = "rtb_cert_data";
             this.rtb_cert_data.ReadOnly = true;
             this.rtb_cert_data.Size = new System.Drawing.Size(376, 98);
@@ -106,10 +107,10 @@
             // pb_logo
             // 
             this.pb_logo.Image = ((System.Drawing.Image)(resources.GetObject("pb_logo.Image")));
-            this.pb_logo.Location = new System.Drawing.Point(261, 24);
+            this.pb_logo.Location = new System.Drawing.Point(253, 26);
             this.pb_logo.Name = "pb_logo";
-            this.pb_logo.Size = new System.Drawing.Size(180, 119);
-            this.pb_logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb_logo.Size = new System.Drawing.Size(197, 126);
+            this.pb_logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pb_logo.TabIndex = 5;
             this.pb_logo.TabStop = false;
             // 

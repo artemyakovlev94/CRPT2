@@ -71,6 +71,8 @@ namespace Crypto
 
             foreach (var signerCert in signerCerts)
                 cb_certificates.Items.Add(signerCert);
+
+            btn_sign_in.Enabled = cb_certificates.SelectedItem != null;
         }
 
         private void cb_certificates_SelectedIndexChanged(object sender, EventArgs e)
@@ -91,6 +93,8 @@ namespace Crypto
                     signerCertSelected.subject.Address
                 );
             }
+
+            btn_sign_in.Enabled = cb_certificates.SelectedItem != null;
         }
     }
 }
