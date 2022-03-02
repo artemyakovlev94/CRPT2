@@ -35,6 +35,7 @@
             this.label_certificate = new System.Windows.Forms.Label();
             this.rtb_cert_data = new System.Windows.Forms.RichTextBox();
             this.pb_logo = new System.Windows.Forms.PictureBox();
+            this.label_version_app = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pb_logo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,7 +44,7 @@
             this.btn_Close.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btn_Close.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btn_Close.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.btn_Close.Location = new System.Drawing.Point(363, 362);
+            this.btn_Close.Location = new System.Drawing.Point(363, 355);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(129, 37);
             this.btn_Close.TabIndex = 2;
@@ -56,7 +57,7 @@
             this.btn_sign_in.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btn_sign_in.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btn_sign_in.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.btn_sign_in.Location = new System.Drawing.Point(211, 362);
+            this.btn_sign_in.Location = new System.Drawing.Point(211, 355);
             this.btn_sign_in.Name = "btn_sign_in";
             this.btn_sign_in.Size = new System.Drawing.Size(129, 37);
             this.btn_sign_in.TabIndex = 1;
@@ -114,12 +115,22 @@
             this.pb_logo.TabIndex = 5;
             this.pb_logo.TabStop = false;
             // 
+            // label_version_app
+            // 
+            this.label_version_app.AutoSize = true;
+            this.label_version_app.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_version_app.Location = new System.Drawing.Point(12, 397);
+            this.label_version_app.Name = "label_version_app";
+            this.label_version_app.Size = new System.Drawing.Size(0, 13);
+            this.label_version_app.TabIndex = 6;
+            // 
             // Form_Auth
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(234)))), ((int)(((byte)(11)))));
             this.ClientSize = new System.Drawing.Size(702, 419);
+            this.Controls.Add(this.label_version_app);
             this.Controls.Add(this.pb_logo);
             this.Controls.Add(this.rtb_cert_data);
             this.Controls.Add(this.label_certificate);
@@ -150,5 +161,6 @@
         private System.Windows.Forms.Label label_certificate;
         private System.Windows.Forms.RichTextBox rtb_cert_data;
         private System.Windows.Forms.PictureBox pb_logo;
+        private System.Windows.Forms.Label label_version_app;
     }
 }

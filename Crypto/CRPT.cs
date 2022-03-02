@@ -43,7 +43,7 @@ namespace Crypto
             }
         }
         
-        private const string BaseURL = "https://shoes.sandbox.crpt.tech/api/v3";
+        private const string BaseURL = "https://sandbox.crpt.tech/api/v3";
         private AuthenticationData authenticationData = new AuthenticationData();
         private Authentication authentication = new Authentication();
         public X509Certificate2 certificate = null;
@@ -60,6 +60,9 @@ namespace Crypto
 
             try
             {
+                if (string.IsNullOrWhiteSpace(authenticationData.data))
+                    return authentication;
+
                 Encoding encoding = Encoding.Unicode;
 
                 byte[] encodedSignature = cryptoClass.SingData(encoding.GetBytes(authenticationData.data), certificate, false);

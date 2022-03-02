@@ -14,6 +14,11 @@ namespace Crypto
         public Form_Auth()
         {
             InitializeComponent();
+
+            label_version_app.Text = Application.ProductVersion;
+
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.token))
+                MessageBox.Show(Properties.Settings.Default.token);
         }
 
         private void Form_Auth_FormClosed(object sender, FormClosedEventArgs e)
@@ -61,7 +66,16 @@ namespace Crypto
             finally
             {
                 CloseProgressPanel(handle);
-                MessageBox.Show(authentication.ToString());
+
+                if (!string.IsNullOrWhiteSpace(authentication.token))
+                {
+                    Properties.Settings.Default.token = authentication.ToString();
+                    Hide();                 
+                }
+                else
+                {
+                    MessageBox.Show("Не удалось авторизоваться");
+                } 
             }
         }
 
