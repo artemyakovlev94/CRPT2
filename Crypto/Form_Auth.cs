@@ -69,7 +69,7 @@ namespace Crypto
 
                 if (!string.IsNullOrWhiteSpace(authentication.token))
                 {
-                    Properties.Settings.Default.token = authentication.ToString();
+                    Properties.Settings.Default.token = authentication.ToString().Replace(Environment.NewLine, "");
                     Hide();                 
                 }
                 else
