@@ -120,6 +120,17 @@ namespace Crypto.Crypto
             return string.Format("{0} ({1} - {2})", subject.ToString(), not_before.ToString("yyyy.MM.dd"), not_after.ToString("yyyy.MM.dd"));
         }
 
+        public string GetData()
+        {
+            return string.Format("Владелец: {1}{0}ИНН: {2}{0}{3}{0}Адрес: {4}",
+                Environment.NewLine,
+                subject.IndividualName,
+                subject.INN,
+                subject.INN.Length == 10 ? $"ОГРН: {subject.OGRN}" : $"ОГРНИП: {subject.OGRN}",
+                subject.Address
+            );
+        }
+
         internal static string GetValueFromStringByKey(string str, string key, string separator = ",")
         {
             if (str == null)

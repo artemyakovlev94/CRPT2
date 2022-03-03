@@ -99,13 +99,7 @@ namespace Crypto
             {
                 SignerCertData signerCertSelected = (SignerCertData)cb_certificates.SelectedItem;
 
-                rtb_cert_data.Text = string.Format("Владелец: {1}{0}ИНН: {2}{0}{3}{0}Адрес: {4}",
-                    Environment.NewLine,
-                    signerCertSelected.subject.IndividualName,
-                    signerCertSelected.subject.INN,
-                    signerCertSelected.subject.INN.Length == 10 ? $"ОГРН: {signerCertSelected.subject.OGRN}" : $"ОГРНИП: {signerCertSelected.subject.OGRN}",
-                    signerCertSelected.subject.Address
-                );
+                rtb_cert_data.Text = signerCertSelected.GetData();
             }
 
             btn_sign_in.Enabled = cb_certificates.SelectedItem != null;
