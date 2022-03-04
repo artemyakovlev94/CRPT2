@@ -68,14 +68,18 @@ namespace Crypto
 
             SignerCertData signerCert = cryptoClass.GetSignerCertBySerialNumber(Properties.Settings.Default.cert_sn);
 
+            byte[] data = encoding.GetBytes(tb_data.Text);
+
             byte[] encodedSignature;
 
-            cryptoClass.SignData(encoding.GetBytes(tb_data.Text), out encodedSignature, signerCert.certificate);
+            cryptoClass.SignData(data, out encodedSignature, signerCert.certificate);
 
             if(encodedSignature == null)
                 return;
 
-            rtb_sign_data.Text = Convert.ToBase64String(encodedSignature);
+            string base64String = Convert.ToBase64String(encodedSignature);
+
+            rtb_sign_data.Text = base64String;
         }
 
         private void btn_unsign_data_Click(object sender, EventArgs e)
@@ -101,7 +105,9 @@ namespace Crypto
             if (unsignedData == null)
                 return ;
 
-            tb_data.Text = encoding.GetString(unsignedData);
+            string unsignedString = encoding.GetString(unsignedData);
+
+            tb_data.Text = unsignedString;
         }
 
         private void tb_string_for_shielding_TextChanged(object sender, EventArgs e)

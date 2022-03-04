@@ -76,19 +76,21 @@ namespace Crypto.Crypto
         /// <param name="signedData">Подписанные данные</param>
         /// <param name="signingCertificate">Сертификат электронной подписи</param>
         /// <returns>Подписанные данные</returns>
-        internal byte[] SignData(byte[] signatureData, out byte[] signedData, X509Certificate2 signingCertificate)
+        internal byte[] SignData(byte[] signatureData, out byte[] signedData, X509Certificate2 signingCertificate, bool detached = false) 
         {
             try
             {
                 ContentInfo contentInfo = new ContentInfo(signatureData);
-                SignedCms signedCms = new SignedCms(contentInfo, false);
+                SignedCms signedCms = new SignedCms(contentInfo, detached);
                 CmsSigner cmsSigner = new CmsSigner(signingCertificate);
 
                 signedCms.ComputeSignature(cmsSigner);
 
-                signedCms.CheckSignature(true);
+                signedCms.CheckSignature(false);
 
                 signedData = signedCms.Encode();
+
+
             }
             catch (Exception ex)
             {
@@ -106,11 +108,21 @@ namespace Crypto.Crypto
         /// <param name="unsignedData">Данные без подписи</param>
         /// <param name="signingCertificate">Сертификат электронной подписи</param>
         /// <returns>Данные без подписи</returns>
-        internal byte[] UnsignData(byte[] signatureRemovalData, out byte[] unsignedData)
+        internal byte[] UnsignData(byte[] signatureRemovalData, out byte[] unsignedData, X509Certificate2 signingCertificate = null, bool detached = false)
         {
             try
             {
-                SignedCms signedCms = new SignedCms();
+                ContentInfo contentInfo = new ContentInfo(signatureRemovalData);
+                SignedCms signedCms = new SignedCms(contentInfo);
+
+                if (signingCertificate != null)
+                {
+                    CmsSigner cmsSigner = new CmsSigner(signingCertificate);
+
+                    signedCms.ComputeSignature(cmsSigner);
+
+                    signedCms.CheckSignature(false);
+                }
 
                 signedCms.Decode(signatureRemovalData);
 
