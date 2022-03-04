@@ -41,6 +41,7 @@
             this.radio_btn_URL = new System.Windows.Forms.RadioButton();
             this.radio_btn_JSON = new System.Windows.Forms.RadioButton();
             this.radio_btn_XML = new System.Windows.Forms.RadioButton();
+            this.btn_unsign_data = new System.Windows.Forms.Button();
             this.tc_sign_data.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tlp_sign_data.SuspendLayout();
@@ -72,12 +73,14 @@
             // 
             // tlp_sign_data
             // 
-            this.tlp_sign_data.ColumnCount = 2;
+            this.tlp_sign_data.ColumnCount = 3;
             this.tlp_sign_data.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlp_sign_data.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tlp_sign_data.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tlp_sign_data.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tlp_sign_data.Controls.Add(this.tb_data, 0, 0);
             this.tlp_sign_data.Controls.Add(this.rtb_sign_data, 0, 1);
             this.tlp_sign_data.Controls.Add(this.btn_sign_data, 1, 0);
+            this.tlp_sign_data.Controls.Add(this.btn_unsign_data, 2, 0);
             this.tlp_sign_data.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlp_sign_data.Location = new System.Drawing.Point(3, 3);
             this.tlp_sign_data.Name = "tlp_sign_data";
@@ -92,12 +95,12 @@
             this.tb_data.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tb_data.Location = new System.Drawing.Point(3, 3);
             this.tb_data.Name = "tb_data";
-            this.tb_data.Size = new System.Drawing.Size(730, 20);
+            this.tb_data.Size = new System.Drawing.Size(660, 20);
             this.tb_data.TabIndex = 0;
             // 
             // rtb_sign_data
             // 
-            this.tlp_sign_data.SetColumnSpan(this.rtb_sign_data, 2);
+            this.tlp_sign_data.SetColumnSpan(this.rtb_sign_data, 3);
             this.rtb_sign_data.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtb_sign_data.Location = new System.Drawing.Point(3, 33);
             this.rtb_sign_data.Name = "rtb_sign_data";
@@ -108,9 +111,9 @@
             // btn_sign_data
             // 
             this.btn_sign_data.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_sign_data.Location = new System.Drawing.Point(739, 3);
+            this.btn_sign_data.Location = new System.Drawing.Point(669, 3);
             this.btn_sign_data.Name = "btn_sign_data";
-            this.btn_sign_data.Size = new System.Drawing.Size(44, 24);
+            this.btn_sign_data.Size = new System.Drawing.Size(54, 24);
             this.btn_sign_data.TabIndex = 2;
             this.btn_sign_data.Text = "Sign";
             this.btn_sign_data.UseVisualStyleBackColor = true;
@@ -206,6 +209,17 @@
             this.radio_btn_XML.UseVisualStyleBackColor = true;
             this.radio_btn_XML.CheckedChanged += new System.EventHandler(this.radio_btn_XML_CheckedChanged);
             // 
+            // btn_unsign_data
+            // 
+            this.btn_unsign_data.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_unsign_data.Location = new System.Drawing.Point(729, 3);
+            this.btn_unsign_data.Name = "btn_unsign_data";
+            this.btn_unsign_data.Size = new System.Drawing.Size(54, 24);
+            this.btn_unsign_data.TabIndex = 3;
+            this.btn_unsign_data.Text = "Unsign";
+            this.btn_unsign_data.UseVisualStyleBackColor = true;
+            this.btn_unsign_data.Click += new System.EventHandler(this.btn_unsign_data_Click);
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -242,5 +256,6 @@
         private System.Windows.Forms.RadioButton radio_btn_URL;
         private System.Windows.Forms.RadioButton radio_btn_JSON;
         private System.Windows.Forms.RadioButton radio_btn_XML;
+        private System.Windows.Forms.Button btn_unsign_data;
     }
 }

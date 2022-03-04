@@ -27,7 +27,11 @@ namespace Crypto
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
+            SignerCertData signerCertSelected = (SignerCertData)cb_certs.SelectedItem;
 
+            Properties.Settings.Default.cert_sn = signerCertSelected.serial_number;
+
+            Hide();
         }
 
         private void Form_SelectCert_Load(object sender, EventArgs e)

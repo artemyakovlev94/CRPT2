@@ -107,15 +107,17 @@ namespace Crypto.Crypto
         /// <param name="unsignedData">Данные без подписи</param>
         /// <param name="signingCertificate">Сертификат электронной подписи</param>
         /// <returns>Данные без подписи</returns>
-        internal byte[] UnsignData(byte[] signatureRemovalData, out byte[] unsignedData, X509Certificate2 signingCertificate)
+        internal byte[] UnsignData(byte[] signatureRemovalData, out byte[] unsignedData, X509Certificate2 signingCertificate, bool detached)
         {
             try
             {
-                SignedCms signedCms = new SignedCms();
-
+                ContentInfo contentInfo = new ContentInfo(signatureRemovalData);
+                SignedCms signedCms = new SignedCms(contentInfo, detached);
                 CmsSigner cmsSigner = new CmsSigner(signingCertificate);
 
                 signedCms.ComputeSignature(cmsSigner);
+
+                signedCms.CheckSignature(true);
 
                 signedCms.Decode(signatureRemovalData);
 

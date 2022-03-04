@@ -62,16 +62,42 @@ namespace Crypto
             if (string.IsNullOrWhiteSpace(Properties.Settings.Default.cert_sn) || string.IsNullOrWhiteSpace(tb_data.Text))
                 return;
 
+            rtb_sign_data.Text = String.Empty;
+
             SignerCertData signerCert = cryptoClass.GetSignerCertBySerialNumber(Properties.Settings.Default.cert_sn);
 
             Encoding encoding = Encoding.Unicode;
 
-            byte[] encodedSignature = cryptoClass.SingData(encoding.GetBytes(tb_data.Text), signerCert.certificate, false);
+            byte[] encodedSignature;
+
+            cryptoClass.SignData(encoding.GetBytes(tb_data.Text), out encodedSignature, signerCert.certificate, false);
 
             if(encodedSignature == null)
                 return;
 
             rtb_sign_data.Text = Convert.ToBase64String(encodedSignature);
+        }
+
+        private void btn_unsign_data_Click(object sender, EventArgs e)
+        {
+            Form_SelectCert form_SelectCert = new Form_SelectCert();
+            form_SelectCert.ShowDialog();
+
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.cert_sn) || string.IsNullOrWhiteSpace(rtb_sign_data.Text))
+                return;
+
+            SignerCertData signerCert = cryptoClass.GetSignerCertBySerialNumber(Properties.Settings.Default.cert_sn);
+
+            tb_data.Text = String.Empty;
+
+            byte[] unsignedData;
+
+            cryptoClass.UnsignData(Convert.FromBase64String(rtb_sign_data.Text), out unsignedData, signerCert.certificate);
+
+            if (unsignedData == null)
+                return ;
+
+            tb_data.Text = Encoding.Unicode.GetString(unsignedData);
         }
 
         private void tb_string_for_shielding_TextChanged(object sender, EventArgs e)
@@ -140,5 +166,7 @@ namespace Crypto
             { '(', "%28" },
             { ')', "%29" }
         };
+
+        
     }
 }
