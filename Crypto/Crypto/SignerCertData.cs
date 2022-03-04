@@ -153,6 +153,4 @@ namespace Crypto.Crypto
             return val;
         }
     }
-
-    
 }

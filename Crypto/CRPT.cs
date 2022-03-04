@@ -63,9 +63,9 @@ namespace Crypto
                 if (string.IsNullOrWhiteSpace(authenticationData.data))
                     return authentication;
 
-                Encoding encoding = Encoding.Unicode;
+                byte[] encodedSignature; 
 
-                byte[] encodedSignature = cryptoClass.SingData(encoding.GetBytes(authenticationData.data), certificate, false);
+                cryptoClass.SignData(Encoding.Unicode.GetBytes(authenticationData.data), out encodedSignature, certificate, false);
 
                 if (encodedSignature == null)
                     return authentication;

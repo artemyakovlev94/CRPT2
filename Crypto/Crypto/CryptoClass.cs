@@ -11,15 +11,17 @@ namespace Crypto.Crypto
 {
     internal class CryptoClass
     {
+        // Хранилище сертификатов: Личное
         private const StoreName storeName = StoreName.My;
+        // Расположение хранилища сертификатов: Текущий пользователь
         private const StoreLocation storeLocation = StoreLocation.CurrentUser;
-
+        // Список данных сертификатов
         internal List<SignerCertData> certificates = new List<SignerCertData>();
 
         internal CryptoClass()
         {
             X509Store store = new X509Store(storeName, storeLocation);
-
+            
             store.Open(OpenFlags.ReadOnly);
 
             foreach (X509Certificate2 certificate in store.Certificates)
@@ -38,38 +40,94 @@ namespace Crypto.Crypto
             store.Close();
         }
 
+        /// <summary>
+        /// Получить список данных сертификатов электронных подписей установленных в хранилище личное текущего пользователя операционной системы
+        /// </summary>
+        /// <returns>Список данных сертификатов электронных подписей</returns>
         public List<SignerCertData> GetSignerCerts()
         {
             return certificates;
         }
 
+        /// <summary>
+        /// Получить данные сертификата электронной подписи по отпечатку
+        /// </summary>
+        /// <param name="thumbprint">Отпечаток сертификата электронной подписи</param>
+        /// <returns>Данные сертификата электронной подписи</returns>
         internal SignerCertData GetSignerCertByThumbprint(string thumbprint)
         {
             return certificates.Find(x => x.thumbprint.Contains(thumbprint));
         }
 
+        /// <summary>
+        /// Получить данные сертификата электронной подписи по серийному номеру
+        /// </summary>
+        /// <param name="serialNumber">Серийный номер сертификата электронной подписи</param>
+        /// <returns>Данные сертификата электронной подписи</returns>
         internal SignerCertData GetSignerCertBySerialNumber(string serialNumber)
         {
             return certificates.Find(x => x.serial_number.Contains(serialNumber));
         }
 
-        internal byte[] SingData(byte[] data, X509Certificate2 singleCert, bool detached)
+        /// <summary>
+        /// Подписать данные
+        /// </summary>
+        /// <param name="signatureData">Данные для подписания</param>
+        /// <param name="signedData">Подписанные данные</param>
+        /// <param name="signingCertificate">Сертификат электронной подписи</param>
+        /// <param name="detached">Отсоединять подпись</param>
+        /// <returns>Подписанные данные</returns>
+        internal byte[] SignData(byte[] signatureData, out byte[] signedData, X509Certificate2 signingCertificate, bool detached)
         {
             try
             {
-                ContentInfo contentInfo = new ContentInfo(data);
+                ContentInfo contentInfo = new ContentInfo(signatureData);
                 SignedCms signedCms = new SignedCms(contentInfo, detached);
-                CmsSigner cmsSigner = new CmsSigner(singleCert);
+                CmsSigner cmsSigner = new CmsSigner(signingCertificate);
 
                 signedCms.ComputeSignature(cmsSigner);
 
-                return signedCms.Encode();
+                signedCms.CheckSignature(true);
+
+                signedData = signedCms.Encode();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return null;
+                signedData = null;
             }
+
+            return signedData;
+        }
+
+        /// <summary>
+        /// Снять подпись с данных
+        /// </summary>
+        /// <param name="signatureRemovalData">Подписанные данные</param>
+        /// <param name="unsignedData">Данные без подписи</param>
+        /// <param name="signingCertificate">Сертификат электронной подписи</param>
+        /// <returns>Данные без подписи</returns>
+        internal byte[] UnsignData(byte[] signatureRemovalData, out byte[] unsignedData, X509Certificate2 signingCertificate)
+        {
+            try
+            {
+                SignedCms signedCms = new SignedCms();
+
+                CmsSigner cmsSigner = new CmsSigner(signingCertificate);
+
+                signedCms.ComputeSignature(cmsSigner);
+
+                signedCms.Decode(signatureRemovalData);
+
+                unsignedData = signedCms.ContentInfo.Content;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                unsignedData = null;
+            }
+
+            return unsignedData;
         }
     }
 }

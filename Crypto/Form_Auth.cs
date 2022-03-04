@@ -35,7 +35,7 @@ namespace Crypto
         {
             if (cb_certificates.SelectedItem == null)
                 return;
-
+            
             SignerCertData signerCertSelected = (SignerCertData)cb_certificates.SelectedItem;
 
             Properties.Settings.Default.cert_sn = signerCertSelected.serial_number;
