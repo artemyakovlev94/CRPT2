@@ -16,6 +16,8 @@ namespace Crypto
     {
         CryptoClass cryptoClass = new CryptoClass();
 
+        private Encoding encoding = Encoding.Unicode;
+
         public Form_Main()
         {
             InitializeComponent();
@@ -62,15 +64,13 @@ namespace Crypto
             if (string.IsNullOrWhiteSpace(Properties.Settings.Default.cert_sn) || string.IsNullOrWhiteSpace(tb_data.Text))
                 return;
 
-            rtb_sign_data.Text = String.Empty;
+            rtb_sign_data.Text = string.Empty;
 
             SignerCertData signerCert = cryptoClass.GetSignerCertBySerialNumber(Properties.Settings.Default.cert_sn);
 
-            Encoding encoding = Encoding.Unicode;
-
             byte[] encodedSignature;
 
-            cryptoClass.SignData(encoding.GetBytes(tb_data.Text), out encodedSignature, signerCert.certificate, false);
+            cryptoClass.SignData(encoding.GetBytes(tb_data.Text), out encodedSignature, signerCert.certificate);
 
             if(encodedSignature == null)
                 return;
@@ -80,24 +80,28 @@ namespace Crypto
 
         private void btn_unsign_data_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(rtb_sign_data.Text))
+                return;
+
             Form_SelectCert form_SelectCert = new Form_SelectCert();
             form_SelectCert.ShowDialog();
 
-            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.cert_sn) || string.IsNullOrWhiteSpace(rtb_sign_data.Text))
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.cert_sn))
                 return;
 
             SignerCertData signerCert = cryptoClass.GetSignerCertBySerialNumber(Properties.Settings.Default.cert_sn);
 
-            tb_data.Text = String.Empty;
+            tb_data.Text = string.Empty;
 
+            byte[] signedData = Convert.FromBase64String(rtb_sign_data.Text);
             byte[] unsignedData;
 
-            cryptoClass.UnsignData(Convert.FromBase64String(rtb_sign_data.Text), out unsignedData, signerCert.certificate);
+            cryptoClass.UnsignData(signedData, out unsignedData);
 
             if (unsignedData == null)
                 return ;
 
-            tb_data.Text = Encoding.Unicode.GetString(unsignedData);
+            tb_data.Text = encoding.GetString(unsignedData);
         }
 
         private void tb_string_for_shielding_TextChanged(object sender, EventArgs e)

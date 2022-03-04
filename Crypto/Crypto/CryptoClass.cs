@@ -75,14 +75,13 @@ namespace Crypto.Crypto
         /// <param name="signatureData">Данные для подписания</param>
         /// <param name="signedData">Подписанные данные</param>
         /// <param name="signingCertificate">Сертификат электронной подписи</param>
-        /// <param name="detached">Отсоединять подпись</param>
         /// <returns>Подписанные данные</returns>
-        internal byte[] SignData(byte[] signatureData, out byte[] signedData, X509Certificate2 signingCertificate, bool detached)
+        internal byte[] SignData(byte[] signatureData, out byte[] signedData, X509Certificate2 signingCertificate)
         {
             try
             {
                 ContentInfo contentInfo = new ContentInfo(signatureData);
-                SignedCms signedCms = new SignedCms(contentInfo, detached);
+                SignedCms signedCms = new SignedCms(contentInfo, false);
                 CmsSigner cmsSigner = new CmsSigner(signingCertificate);
 
                 signedCms.ComputeSignature(cmsSigner);
@@ -107,17 +106,11 @@ namespace Crypto.Crypto
         /// <param name="unsignedData">Данные без подписи</param>
         /// <param name="signingCertificate">Сертификат электронной подписи</param>
         /// <returns>Данные без подписи</returns>
-        internal byte[] UnsignData(byte[] signatureRemovalData, out byte[] unsignedData, X509Certificate2 signingCertificate, bool detached)
+        internal byte[] UnsignData(byte[] signatureRemovalData, out byte[] unsignedData)
         {
             try
             {
-                ContentInfo contentInfo = new ContentInfo(signatureRemovalData);
-                SignedCms signedCms = new SignedCms(contentInfo, detached);
-                CmsSigner cmsSigner = new CmsSigner(signingCertificate);
-
-                signedCms.ComputeSignature(cmsSigner);
-
-                signedCms.CheckSignature(true);
+                SignedCms signedCms = new SignedCms();
 
                 signedCms.Decode(signatureRemovalData);
 

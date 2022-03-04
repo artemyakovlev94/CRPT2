@@ -59,12 +59,13 @@
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.cb_certs, 2);
             this.cb_certs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cb_certs.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cb_certs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cb_certs.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.cb_certs.FormattingEnabled = true;
             this.cb_certs.Location = new System.Drawing.Point(20, 20);
             this.cb_certs.Margin = new System.Windows.Forms.Padding(20);
             this.cb_certs.Name = "cb_certs";
-            this.cb_certs.Size = new System.Drawing.Size(605, 37);
+            this.cb_certs.Size = new System.Drawing.Size(605, 31);
             this.cb_certs.TabIndex = 0;
             this.cb_certs.SelectedIndexChanged += new System.EventHandler(this.cb_certs_SelectedIndexChanged);
             // 

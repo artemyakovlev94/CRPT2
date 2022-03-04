@@ -34,6 +34,7 @@
             this.tb_data = new System.Windows.Forms.TextBox();
             this.rtb_sign_data = new System.Windows.Forms.RichTextBox();
             this.btn_sign_data = new System.Windows.Forms.Button();
+            this.btn_unsign_data = new System.Windows.Forms.Button();
             this.tb_shielding = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tb_string_for_shielding = new System.Windows.Forms.TextBox();
@@ -41,7 +42,6 @@
             this.radio_btn_URL = new System.Windows.Forms.RadioButton();
             this.radio_btn_JSON = new System.Windows.Forms.RadioButton();
             this.radio_btn_XML = new System.Windows.Forms.RadioButton();
-            this.btn_unsign_data = new System.Windows.Forms.Button();
             this.tc_sign_data.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tlp_sign_data.SuspendLayout();
@@ -118,6 +118,17 @@
             this.btn_sign_data.Text = "Sign";
             this.btn_sign_data.UseVisualStyleBackColor = true;
             this.btn_sign_data.Click += new System.EventHandler(this.btn_sign_data_Click);
+            // 
+            // btn_unsign_data
+            // 
+            this.btn_unsign_data.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_unsign_data.Location = new System.Drawing.Point(729, 3);
+            this.btn_unsign_data.Name = "btn_unsign_data";
+            this.btn_unsign_data.Size = new System.Drawing.Size(54, 24);
+            this.btn_unsign_data.TabIndex = 3;
+            this.btn_unsign_data.Text = "Unsign";
+            this.btn_unsign_data.UseVisualStyleBackColor = true;
+            this.btn_unsign_data.Click += new System.EventHandler(this.btn_unsign_data_Click);
             // 
             // tb_shielding
             // 
@@ -208,17 +219,6 @@
             this.radio_btn_XML.Text = "XML";
             this.radio_btn_XML.UseVisualStyleBackColor = true;
             this.radio_btn_XML.CheckedChanged += new System.EventHandler(this.radio_btn_XML_CheckedChanged);
-            // 
-            // btn_unsign_data
-            // 
-            this.btn_unsign_data.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_unsign_data.Location = new System.Drawing.Point(729, 3);
-            this.btn_unsign_data.Name = "btn_unsign_data";
-            this.btn_unsign_data.Size = new System.Drawing.Size(54, 24);
-            this.btn_unsign_data.TabIndex = 3;
-            this.btn_unsign_data.Text = "Unsign";
-            this.btn_unsign_data.UseVisualStyleBackColor = true;
-            this.btn_unsign_data.Click += new System.EventHandler(this.btn_unsign_data_Click);
             // 
             // Form_Main
             // 

@@ -65,7 +65,7 @@ namespace Crypto
 
                 byte[] encodedSignature; 
 
-                cryptoClass.SignData(Encoding.Unicode.GetBytes(authenticationData.data), out encodedSignature, certificate, false);
+                cryptoClass.SignData(Encoding.Unicode.GetBytes(authenticationData.data), out encodedSignature, certificate);
 
                 if (encodedSignature == null)
                     return authentication;
