@@ -9,18 +9,21 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="BarcodeScannerPort" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">HID</Value>
     </Setting>
-    <Setting Name="BarcodeScannerSymbolNewLine" Type="System.String" Scope="User">
+    <Setting Name="BarcodeScannerBaudRate" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">9600</Value>
+    </Setting>
+    <Setting Name="BarcodeScannerLineBreakCharacter" Type="System.String" Scope="User">
       <Value Profile="(Default)">Return</Value>
     </Setting>
-    <Setting Name="BarcodeScannerSymbolGS" Type="System.String" Scope="User">
-      <Value Profile="(Default)">F8</Value>
-    </Setting>
-    <Setting Name="BarcodeScannerSymbolNewLineValue" Type="System.Int32" Scope="User">
+    <Setting Name="BarcodeScannerLineBreakCharacterValue" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">13</Value>
     </Setting>
-    <Setting Name="BarcodeScannerSymbolGSValue" Type="System.Int32" Scope="User">
+    <Setting Name="BarcodeScannerGS1Character" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F8</Value>
+    </Setting>
+    <Setting Name="BarcodeScannerGS1CharacterValue" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">119</Value>
     </Setting>
   </Settings>

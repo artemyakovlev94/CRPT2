@@ -13,6 +13,8 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>false</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -27,8 +29,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -65,6 +65,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Barcode.cs">
@@ -78,6 +79,12 @@
     </Compile>
     <Compile Include="BarcodeKeyboard.Designer.cs">
       <DependentUpon>BarcodeKeyboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BarcodeSannerSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BarcodeSannerSettings.Designer.cs">
+      <DependentUpon>BarcodeSannerSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="BarcodeScan.cs">
       <SubType>Form</SubType>
@@ -106,6 +113,7 @@
     <Compile Include="Form_SelectCert.Designer.cs">
       <DependentUpon>Form_SelectCert.cs</DependentUpon>
     </Compile>
+    <Compile Include="LowLevelKeyboardListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Barcode.resx">
@@ -113,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BarcodeKeyboard.resx">
       <DependentUpon>BarcodeKeyboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BarcodeSannerSettings.resx">
+      <DependentUpon>BarcodeSannerSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BarcodeScan.resx">
       <DependentUpon>BarcodeScan.cs</DependentUpon>

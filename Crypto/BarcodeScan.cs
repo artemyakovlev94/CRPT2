@@ -36,14 +36,14 @@ namespace Crypto
                 cb_barcodeScanerPort.SelectedIndex = cb_barcodeScanerPort.Items.IndexOf(Properties.Settings.Default.BarcodeScannerPort);
             }
 
-            tb_SymbolNewLine.Text = Properties.Settings.Default.BarcodeScannerSymbolNewLine;
-            tb_symbolGSForHID.Text = Properties.Settings.Default.BarcodeScannerSymbolGS;
+            tb_SymbolNewLine.Text = Properties.Settings.Default.BarcodeScannerLineBreakCharacter;
+            tb_symbolGSForHID.Text = Properties.Settings.Default.BarcodeScannerGS1Character;
         }
 
         private void tb_SymbolNewLine_KeyDown(object sender, KeyEventArgs e)
         {
-            Properties.Settings.Default.BarcodeScannerSymbolNewLine = e.KeyData.ToString();
-            Properties.Settings.Default.BarcodeScannerSymbolNewLineValue = e.KeyValue;
+            Properties.Settings.Default.BarcodeScannerLineBreakCharacter = e.KeyData.ToString();
+            Properties.Settings.Default.BarcodeScannerLineBreakCharacterValue = e.KeyValue;
             Properties.Settings.Default.Save();
 
             tb_SymbolNewLine.Text = e.KeyData.ToString();
@@ -51,8 +51,8 @@ namespace Crypto
 
         private void tb_symbolGSForHID_KeyDown(object sender, KeyEventArgs e)
         {
-            Properties.Settings.Default.BarcodeScannerSymbolGS = e.KeyData.ToString();
-            Properties.Settings.Default.BarcodeScannerSymbolGSValue = e.KeyValue;
+            Properties.Settings.Default.BarcodeScannerGS1Character = e.KeyData.ToString();
+            Properties.Settings.Default.BarcodeScannerGS1CharacterValue = e.KeyValue;
             Properties.Settings.Default.Save();
 
             tb_symbolGSForHID.Text = e.KeyData.ToString();
@@ -96,7 +96,7 @@ namespace Crypto
 
             foreach (var ch in chars)
             {
-                if (ch == (char)Properties.Settings.Default.BarcodeScannerSymbolNewLineValue || ch == (char)29)
+                if (ch == (char)Properties.Settings.Default.BarcodeScannerLineBreakCharacterValue || ch == (char)29)
                     break;
 
                 tb_scanData.Text += ch;

@@ -12,7 +12,7 @@ namespace Crypto.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -49,7 +49,7 @@ namespace Crypto.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("HID")]
         public string BarcodeScannerPort {
             get {
                 return ((string)(this["BarcodeScannerPort"]));
@@ -61,49 +61,61 @@ namespace Crypto.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Return")]
-        public string BarcodeScannerSymbolNewLine {
+        [global::System.Configuration.DefaultSettingValueAttribute("9600")]
+        public int BarcodeScannerBaudRate {
             get {
-                return ((string)(this["BarcodeScannerSymbolNewLine"]));
+                return ((int)(this["BarcodeScannerBaudRate"]));
             }
             set {
-                this["BarcodeScannerSymbolNewLine"] = value;
+                this["BarcodeScannerBaudRate"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("F8")]
-        public string BarcodeScannerSymbolGS {
+        [global::System.Configuration.DefaultSettingValueAttribute("Return")]
+        public string BarcodeScannerLineBreakCharacter {
             get {
-                return ((string)(this["BarcodeScannerSymbolGS"]));
+                return ((string)(this["BarcodeScannerLineBreakCharacter"]));
             }
             set {
-                this["BarcodeScannerSymbolGS"] = value;
+                this["BarcodeScannerLineBreakCharacter"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("13")]
-        public int BarcodeScannerSymbolNewLineValue {
+        public int BarcodeScannerLineBreakCharacterValue {
             get {
-                return ((int)(this["BarcodeScannerSymbolNewLineValue"]));
+                return ((int)(this["BarcodeScannerLineBreakCharacterValue"]));
             }
             set {
-                this["BarcodeScannerSymbolNewLineValue"] = value;
+                this["BarcodeScannerLineBreakCharacterValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("F8")]
+        public string BarcodeScannerGS1Character {
+            get {
+                return ((string)(this["BarcodeScannerGS1Character"]));
+            }
+            set {
+                this["BarcodeScannerGS1Character"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("119")]
-        public int BarcodeScannerSymbolGSValue {
+        public int BarcodeScannerGS1CharacterValue {
             get {
-                return ((int)(this["BarcodeScannerSymbolGSValue"]));
+                return ((int)(this["BarcodeScannerGS1CharacterValue"]));
             }
             set {
-                this["BarcodeScannerSymbolGSValue"] = value;
+                this["BarcodeScannerGS1CharacterValue"] = value;
             }
         }
     }
