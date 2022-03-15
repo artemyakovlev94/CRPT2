@@ -46,5 +46,65 @@ namespace Crypto.Properties {
                 this["token"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BarcodeScannerPort {
+            get {
+                return ((string)(this["BarcodeScannerPort"]));
+            }
+            set {
+                this["BarcodeScannerPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Return")]
+        public string BarcodeScannerSymbolNewLine {
+            get {
+                return ((string)(this["BarcodeScannerSymbolNewLine"]));
+            }
+            set {
+                this["BarcodeScannerSymbolNewLine"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("F8")]
+        public string BarcodeScannerSymbolGS {
+            get {
+                return ((string)(this["BarcodeScannerSymbolGS"]));
+            }
+            set {
+                this["BarcodeScannerSymbolGS"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("13")]
+        public int BarcodeScannerSymbolNewLineValue {
+            get {
+                return ((int)(this["BarcodeScannerSymbolNewLineValue"]));
+            }
+            set {
+                this["BarcodeScannerSymbolNewLineValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("119")]
+        public int BarcodeScannerSymbolGSValue {
+            get {
+                return ((int)(this["BarcodeScannerSymbolGSValue"]));
+            }
+            set {
+                this["BarcodeScannerSymbolGSValue"] = value;
+            }
+        }
     }
 }

@@ -8,5 +8,20 @@
     <Setting Name="token" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="BarcodeScannerPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="BarcodeScannerSymbolNewLine" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Return</Value>
+    </Setting>
+    <Setting Name="BarcodeScannerSymbolGS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F8</Value>
+    </Setting>
+    <Setting Name="BarcodeScannerSymbolNewLineValue" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">13</Value>
+    </Setting>
+    <Setting Name="BarcodeScannerSymbolGSValue" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">119</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
