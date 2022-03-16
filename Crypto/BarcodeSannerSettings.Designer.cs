@@ -214,8 +214,6 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "BarcodeSannerSettings";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройка сканера штрихкода";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BarcodeSannerSettings_FormClosed);
