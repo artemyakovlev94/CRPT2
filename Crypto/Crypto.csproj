@@ -68,30 +68,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Barcode.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Barcode.Designer.cs">
-      <DependentUpon>Barcode.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BarcodeKeyboard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BarcodeKeyboard.Designer.cs">
-      <DependentUpon>BarcodeKeyboard.cs</DependentUpon>
-    </Compile>
+    <Compile Include="BarcodeData.cs" />
     <Compile Include="BarcodeSannerSettings.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="BarcodeSannerSettings.Designer.cs">
       <DependentUpon>BarcodeSannerSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="BarcodeScan.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BarcodeScan.Designer.cs">
-      <DependentUpon>BarcodeScan.cs</DependentUpon>
-    </Compile>
+    <Compile Include="BarcodeScanner2.cs" />
     <Compile Include="CRPT.cs" />
     <Compile Include="Crypto\SignerCertData.cs" />
     <Compile Include="Crypto\CryptoClass.cs" />
@@ -120,20 +104,10 @@
     <Compile Include="Form_SelectCert.Designer.cs">
       <DependentUpon>Form_SelectCert.cs</DependentUpon>
     </Compile>
-    <Compile Include="LowLevelKeyboardListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Barcode.resx">
-      <DependentUpon>Barcode.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BarcodeKeyboard.resx">
-      <DependentUpon>BarcodeKeyboard.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="BarcodeSannerSettings.resx">
       <DependentUpon>BarcodeSannerSettings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BarcodeScan.resx">
-      <DependentUpon>BarcodeScan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTest.resx">
       <DependentUpon>FormTest.cs</DependentUpon>

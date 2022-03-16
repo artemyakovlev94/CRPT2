@@ -189,6 +189,7 @@
             // 
             // rtb_Test
             // 
+            this.rtb_Test.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rtb_Test.Location = new System.Drawing.Point(12, 174);
             this.rtb_Test.Name = "rtb_Test";
             this.rtb_Test.ReadOnly = true;
@@ -205,7 +206,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(417, 280);
+            this.ClientSize = new System.Drawing.Size(415, 280);
             this.Controls.Add(this.rtb_Test);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
