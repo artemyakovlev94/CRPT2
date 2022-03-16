@@ -195,7 +195,6 @@
             this.rtb_Test.Size = new System.Drawing.Size(386, 96);
             this.rtb_Test.TabIndex = 10;
             this.rtb_Test.Text = "";
-            this.rtb_Test.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.rtb_Test_PreviewKeyDown);
             // 
             // serialPortBarcodeScaner
             // 
@@ -218,9 +217,7 @@
             this.Text = "Настройка сканера штрихкода";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BarcodeSannerSettings_FormClosed);
             this.Load += new System.EventHandler(this.BarcodeSannerSettings_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BarcodeSannerSettings_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BarcodeSannerSettings_KeyUp);
-            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.BarcodeSannerSettings_PreviewKeyDown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
