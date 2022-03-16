@@ -16,7 +16,7 @@ namespace Crypto
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new BarcodeSannerSettings());
+            Application.Run(new FormTest());
         }
     }
 }
