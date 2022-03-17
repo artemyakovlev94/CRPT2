@@ -6,7 +6,9 @@ using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -73,12 +75,16 @@ namespace Crypto
             barcodeScanner2.SetGS1Symbol(Properties.Settings.Default.BarcodeScannerGS1CharacterValue);
 
             rtb_Test.Visible = TestConnection;
+
+            barcodeScanner2.NotifyReceivedData += NotifyReceivedData;
         }
 
         private void BarcodeSannerSettings_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (serialPortBarcodeScaner.IsOpen)
                 serialPortBarcodeScaner.Close();
+
+            barcodeScanner2.NotifyReceivedData -= NotifyReceivedData;
         }
 
         private void AccessibilityFormElements()
@@ -141,41 +147,54 @@ namespace Crypto
 
             AccessibilityFormElements();
 
-            if (cb_Ports.SelectedItem.ToString() == "HID")
+            if (TestConnection)
             {
-                if (TestConnection)
-                {
-                    rtb_Test.Focus();
-                    //this.KeyUp += barcodeScanner2.KeyUp;
-                    //barcodeScanner2.NotifyReceivedData += NotifyReceivedData;
-                    barcodeScanner2.OpenConnection();
-                }
-                else
-                {
-                    barcodeScanner2.CloseConnection();
-                    //this.KeyUp -= barcodeScanner2.KeyUp;
-                    //barcodeScanner2.NotifyReceivedData -= NotifyReceivedData;
-                }   
+                rtb_Test.Focus();
+
+                barcodeScanner2.OpenConnection();
             }
             else
             {
-                if (TestConnection)
-                {
-                    if (serialPortBarcodeScaner.IsOpen)
-                        serialPortBarcodeScaner.Close();
-
-                    serialPortBarcodeScaner.PortName = cb_Ports.SelectedItem.ToString();
-                    serialPortBarcodeScaner.BaudRate = (int)cb_BaudRate.SelectedItem;
-                    serialPortBarcodeScaner.DataBits = 8;
-                    serialPortBarcodeScaner.Encoding = Encoding.ASCII;
-                    serialPortBarcodeScaner.Open();
-                }
-                else
-                {
-                    if (serialPortBarcodeScaner.IsOpen)
-                        serialPortBarcodeScaner.Close();
-                }
+                barcodeScanner2.CloseConnection();
             }
+
+            //if (cb_Ports.SelectedItem.ToString() == "HID")
+            //{
+            //    if (TestConnection)
+            //    {
+            //        rtb_Test.Focus();
+            //        //this.KeyUp += barcodeScanner2.KeyUp;
+            //        //
+            //        barcodeScanner2.OpenConnection();
+            //        barcodeScanner2.NotifyReceivedData += NotifyReceivedData;
+            //    }
+            //    else
+            //    {
+            //        barcodeScanner2.CloseConnection();
+            //        barcodeScanner2.NotifyReceivedData -= NotifyReceivedData;
+            //        //this.KeyUp -= barcodeScanner2.KeyUp;
+            //        //
+            //    }
+            //}
+            //else
+            //{
+            //    if (TestConnection)
+            //    {
+            //        if (serialPortBarcodeScaner.IsOpen)
+            //            serialPortBarcodeScaner.Close();
+
+            //        serialPortBarcodeScaner.PortName = cb_Ports.SelectedItem.ToString();
+            //        serialPortBarcodeScaner.BaudRate = (int)cb_BaudRate.SelectedItem;
+            //        serialPortBarcodeScaner.DataBits = 8;
+            //        serialPortBarcodeScaner.Encoding = Encoding.ASCII;
+            //        serialPortBarcodeScaner.Open();
+            //    }
+            //    else
+            //    {
+            //        if (serialPortBarcodeScaner.IsOpen)                    
+            //            serialPortBarcodeScaner.Close();
+            //    }
+            //}
         }
 
         #region COMScanner

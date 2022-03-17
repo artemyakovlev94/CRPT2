@@ -193,7 +193,7 @@
             this.rtb_Test.Location = new System.Drawing.Point(12, 174);
             this.rtb_Test.Name = "rtb_Test";
             this.rtb_Test.ReadOnly = true;
-            this.rtb_Test.Size = new System.Drawing.Size(386, 96);
+            this.rtb_Test.Size = new System.Drawing.Size(386, 146);
             this.rtb_Test.TabIndex = 10;
             this.rtb_Test.Text = "";
             this.rtb_Test.WordWrap = false;
@@ -207,7 +207,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(415, 280);
+            this.ClientSize = new System.Drawing.Size(415, 332);
             this.Controls.Add(this.rtb_Test);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

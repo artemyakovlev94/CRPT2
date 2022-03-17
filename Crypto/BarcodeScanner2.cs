@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace Crypto
@@ -21,7 +22,6 @@ namespace Crypto
         internal int baudRate { get; set; }
         internal int lineBreakSymbolValue { get; set; }
         internal int gs1SymbolValue { get; set; }
-        internal int timeout { get; set; }
         internal Encoding encoding { get; set; }
         private static bool upperCase { get; set; }
 
@@ -31,7 +31,6 @@ namespace Crypto
             baudRate = 9600;
             lineBreakSymbolValue = 13;
             gs1SymbolValue = 119;
-            timeout = 2000;
             encoding = Encoding.ASCII;
             upperCase = false;
         }
@@ -42,7 +41,6 @@ namespace Crypto
             this.baudRate = baudRate;
             this.lineBreakSymbolValue = lineBreakSymbol;
             this.gs1SymbolValue = gs1Symbol;
-            timeout = 2000;
             encoding = Encoding.ASCII;
             upperCase = false;
         }
@@ -53,7 +51,6 @@ namespace Crypto
             this.baudRate = baudRate;
             this.lineBreakSymbolValue = lineBreakSymbol;
             this.gs1SymbolValue = gs1Symbol;
-            this.timeout = timeout;
             this.encoding = encoding;
             upperCase = false;
         }
@@ -78,55 +75,13 @@ namespace Crypto
             this.gs1SymbolValue = gs1SymbolValue;
         }
 
-        internal void SetTimeout(int timeout)
-        {
-            this.timeout = timeout;
-        }
-
         internal void SetEncoding(Encoding encoding)
         {
             this.encoding = encoding;
         }
 
-        internal void ReceivedDataEvent(KeyEventArgs e)
-        {
-            if (port != portNameHID || e.KeyCode == Keys.Control || e.KeyCode == Keys.ControlKey || 
-                e.KeyCode == Keys.LControlKey || e.KeyCode == Keys.RControlKey || e.KeyCode == Keys.Alt)
-                return;
-
-            if (e.KeyCode == Keys.Shift || e.KeyCode == Keys.ShiftKey || e.KeyCode == Keys.LShiftKey || e.KeyCode == Keys.RShiftKey)
-            {
-                upperCase = true;
-                return;
-            }
-
-            charCodes.Add(new CharCode()
-            {
-                UpperCase = upperCase,
-                Code = (int)e.KeyCode
-            });
-
-            if (e.KeyValue == (char)lineBreakSymbolValue)
-            {
-                ParseReceivedData(lineBreakSymbolValue, gs1SymbolValue);
-
-                NotifyReceivedData?.Invoke(this);
-
-                ResetReceivedData();
-            }
-
-            upperCase = false;
-        }
-
-        public void KeyUp(object sender, KeyEventArgs e)
-        {
-            ReceivedDataEvent(e);
-        }
-
         private void _keyboardListener_OnKeyPressed(object sender, KeyPressedArgs e)
         {
-            MessageBox.Show(e.KeyPressed.ToString());
-
             if (e.KeyPressed == System.Windows.Input.Key.LeftCtrl || e.KeyPressed == System.Windows.Input.Key.RightCtrl || 
                 e.KeyPressed == System.Windows.Input.Key.LeftAlt || e.KeyPressed == System.Windows.Input.Key.RightAlt)
             {
@@ -147,14 +102,19 @@ namespace Crypto
 
             if (e.KeyCode == lineBreakSymbolValue)
             {
-                ParseReceivedData(lineBreakSymbolValue, gs1SymbolValue);
-
-                NotifyReceivedData?.Invoke(this);
-
-                ResetReceivedData();
+                EndReceivedData();
             }
 
             upperCase = false;
+        }
+
+        private void EndReceivedData()
+        {
+            ParseReceivedData(lineBreakSymbolValue, gs1SymbolValue);
+
+            NotifyReceivedData?.Invoke(this);
+
+            ResetReceivedData();
         }
 
         public void OpenConnection()
