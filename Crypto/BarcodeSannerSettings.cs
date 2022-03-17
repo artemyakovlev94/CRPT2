@@ -148,11 +148,11 @@ namespace Crypto
                     rtb_Test.Focus();
                     //this.KeyUp += barcodeScanner2.KeyUp;
                     //barcodeScanner2.NotifyReceivedData += NotifyReceivedData;
-                    barcodeScanner2.Open();
+                    barcodeScanner2.OpenConnection();
                 }
                 else
                 {
-                    barcodeScanner2.Close();
+                    barcodeScanner2.CloseConnection();
                     //this.KeyUp -= barcodeScanner2.KeyUp;
                     //barcodeScanner2.NotifyReceivedData -= NotifyReceivedData;
                 }   

@@ -8,7 +8,9 @@ using System.Windows.Forms;
 namespace Crypto
 {
     internal class BarcodeScanner2 : BarcodeData
-    {        
+    {
+        private LowLevelKeyboardListener _keyboardListener = new LowLevelKeyboardListener();
+
         internal delegate void BarcodeScannerHandler(BarcodeData barcodeData);
 
         internal event BarcodeScannerHandler NotifyReceivedData;
@@ -121,22 +123,64 @@ namespace Crypto
             ReceivedDataEvent(e);
         }
 
-        private void _listener_OnKeyPressed(object sender, KeyPressedArgs e)
+        private void _keyboardListener_OnKeyPressed(object sender, KeyPressedArgs e)
         {
-            MessageBox.Show(String.Format("{0} = {1} ({2})", (int)e.KeyPressed, e.KeyPressed, e));
+            MessageBox.Show(e.KeyPressed.ToString());
+
+            if (e.KeyPressed == System.Windows.Input.Key.LeftCtrl || e.KeyPressed == System.Windows.Input.Key.RightCtrl || 
+                e.KeyPressed == System.Windows.Input.Key.LeftAlt || e.KeyPressed == System.Windows.Input.Key.RightAlt)
+            {
+                return;
+            }
+
+            if (e.KeyPressed == System.Windows.Input.Key.LeftShift || e.KeyPressed == System.Windows.Input.Key.RightShift)
+            {
+                upperCase = true;
+                return;
+            }
+
+            charCodes.Add(new CharCode()
+            {
+                UpperCase = upperCase,
+                Code = e.KeyCode
+            });
+
+            if (e.KeyCode == lineBreakSymbolValue)
+            {
+                ParseReceivedData(lineBreakSymbolValue, gs1SymbolValue);
+
+                NotifyReceivedData?.Invoke(this);
+
+                ResetReceivedData();
+            }
+
+            upperCase = false;
         }
 
-        private LowLevelKeyboardListener _listener = new LowLevelKeyboardListener();
-        public void Open()
+        public void OpenConnection()
         {
-            _listener.OnKeyPressed += _listener_OnKeyPressed;
-
-            _listener.HookKeyboard();
+            if (port == portNameHID)
+            {
+                _keyboardListener.OnKeyPressed += _keyboardListener_OnKeyPressed;
+                _keyboardListener.HookKeyboard();
+            }
+            else
+            {
+                // COM ports
+            }
         }
 
-        public void Close()
+        public void CloseConnection()
         {
-            _listener.UnHookKeyboard();
+            if (port == portNameHID)
+            {
+                _keyboardListener.UnHookKeyboard();
+                _keyboardListener.OnKeyPressed -= _keyboardListener_OnKeyPressed;
+            }
+            else
+            {
+                // COM ports
+            }
         }
     }
 }

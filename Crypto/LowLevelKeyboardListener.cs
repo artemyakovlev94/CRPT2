@@ -59,7 +59,6 @@ namespace Crypto
             }
         }
 
-
         private IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN || wParam == (IntPtr)WM_SYSKEYDOWN)
@@ -69,7 +68,7 @@ namespace Crypto
 
                 if (OnKeyPressed != null)
                 {
-                    OnKeyPressed(this, new KeyPressedArgs(KeyInterop.KeyFromVirtualKey(vkCode)));
+                    OnKeyPressed(this, new KeyPressedArgs(KeyInterop.KeyFromVirtualKey(vkCode), vkCode));
                 }
             }
 
@@ -81,9 +80,12 @@ namespace Crypto
     {
         public Key KeyPressed { get; private set; }
 
-        public KeyPressedArgs(Key key)
+        public int KeyCode { get; private set; }
+
+        public KeyPressedArgs(Key key, int keyCode)
         {
             KeyPressed = key;
+            KeyCode = keyCode;
         }
     }
 }
