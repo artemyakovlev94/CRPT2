@@ -219,7 +219,6 @@
             this.Text = "Настройка сканера штрихкода";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BarcodeSannerSettings_FormClosed);
             this.Load += new System.EventHandler(this.BarcodeSannerSettings_Load);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BarcodeSannerSettings_KeyUp);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

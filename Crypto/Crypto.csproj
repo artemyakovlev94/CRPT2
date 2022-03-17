@@ -104,6 +104,7 @@
     <Compile Include="Form_SelectCert.Designer.cs">
       <DependentUpon>Form_SelectCert.cs</DependentUpon>
     </Compile>
+    <Compile Include="LowLevelKeyboardListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BarcodeSannerSettings.resx">
