@@ -149,6 +149,7 @@ namespace Crypto
 
             if (TestConnection)
             {
+                barcodeDatas.Clear();
                 rtb_Test.Focus();
 
                 barcodeScanner2.OpenConnection();
@@ -224,9 +225,22 @@ namespace Crypto
         }
         #endregion
 
+        List<BarcodeData> barcodeDatas = new List<BarcodeData>();
         private void NotifyReceivedData(BarcodeData barcodeData)
         {
-            rtb_Test.Text += string.Format("{0}{1}", barcodeData.ToString(), Environment.NewLine);
+            barcodeDatas.Add(barcodeData);
+
+            UpdateRTB();
+        }
+
+        private void UpdateRTB()
+        {
+            rtb_Test.Text = String.Empty;
+
+            foreach (var bd in barcodeDatas)
+            {
+                rtb_Test.Text += string.Format("{0}{1}", bd.ToString(), Environment.NewLine);
+            }
         }
     }
 }

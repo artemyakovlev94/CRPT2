@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,8 @@ namespace Crypto
         internal event BarcodeScannerHandler NotifyReceivedData;
 
         private const string portNameHID = "HID";
+
+        private SerialPort _serialPort = new SerialPort();
 
         internal string port { get; set; }
         internal int baudRate { get; set; }
@@ -108,6 +111,25 @@ namespace Crypto
             upperCase = false;
         }
 
+        private void _serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            char[] chars = _serialPort.ReadExisting().ToArray();
+
+            foreach (var ch in chars)
+            {
+                if ((int)ch == lineBreakSymbolValue)
+                    break;
+
+                charCodes.Add(new CharCode()
+                {
+                    UpperCase = char.IsUpper(ch),
+                    Code = (int)ch
+                });
+            }
+
+            EndReceivedData();
+        }
+
         private void EndReceivedData()
         {
             ParseReceivedData(lineBreakSymbolValue, gs1SymbolValue);
@@ -126,7 +148,15 @@ namespace Crypto
             }
             else
             {
-                // COM ports
+                if (_serialPort.IsOpen)
+                    _serialPort.Close();
+
+                _serialPort.PortName = port;
+                _serialPort.BaudRate = baudRate;
+                _serialPort.DataBits = 8;
+                _serialPort.Encoding = Encoding.ASCII;
+                _serialPort.DataReceived += _serialPort_DataReceived;
+                _serialPort.Open();
             }
         }
 
@@ -139,7 +169,8 @@ namespace Crypto
             }
             else
             {
-                // COM ports
+                if (_serialPort.IsOpen)
+                    _serialPort.Close();
             }
         }
     }
