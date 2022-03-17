@@ -64,6 +64,7 @@ namespace Crypto
         {
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN || wParam == (IntPtr)WM_SYSKEYDOWN)
             {
+                // Нужный номер
                 int vkCode = Marshal.ReadInt32(lParam);
 
                 if (OnKeyPressed != null)
