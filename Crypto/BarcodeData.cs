@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Crypto
 {
@@ -10,7 +11,148 @@ namespace Crypto
     {
         // https://docs.microsoft.com/ru-ru/dotnet/api/system.windows.forms.keys?view=windowsdesktop-6.0
 
-        private readonly Dictionary<int, string> uppercaseKeySymbol = new Dictionary<int, string>()
+        /// <summary>
+        /// Словарь символов верхнего регистра (клавиша символа = символ)
+        /// </summary>
+        private readonly Dictionary<Keys, string> uppercaseSymbolByKey = new Dictionary<Keys, string>()
+        {
+            { Keys.Divide,          "/" },
+            { Keys.Multiply,        "*" },
+            { Keys.Subtract,        "-" },
+            { Keys.Add,             "+" },
+            { Keys.Decimal,         "." },
+            { Keys.NumPad1,         "1" },
+            { Keys.NumPad2,         "2" },
+            { Keys.NumPad3,         "3" },
+            { Keys.NumPad4,         "4" },
+            { Keys.NumPad5,         "5" },
+            { Keys.NumPad6,         "6" },
+            { Keys.NumPad7,         "7" },
+            { Keys.NumPad8,         "8" },
+            { Keys.NumPad9,         "9" },
+            { Keys.NumPad0,         "0" },
+            { Keys.D1,              "!" },
+            { Keys.D2,              "@" },
+            { Keys.D3,              "#" },
+            { Keys.D4,              "$" },
+            { Keys.D5,              "%" },
+            { Keys.D6,              "^" },
+            { Keys.D7,              "&" },
+            { Keys.D8,              "*" },
+            { Keys.D9,              "(" },
+            { Keys.D0,              ")" },
+            { Keys.Oemtilde,        "~" },
+            { Keys.OemMinus,        "_" },
+            { Keys.Oemplus,         "+" },
+            { Keys.OemOpenBrackets, "{" },
+            { Keys.Oem6,            "}" },
+            { Keys.Oem1,            ":" },
+            { Keys.Oem7,            "\"" },
+            { Keys.Oem5,            "|" },
+            { Keys.Oemcomma,        "<" },
+            { Keys.OemPeriod,       ">" },
+            { Keys.OemQuestion,     "?" },
+            { Keys.A,               "A" },
+            { Keys.B,               "B" },
+            { Keys.C,               "C" },
+            { Keys.D,               "D" },
+            { Keys.E,               "E" },
+            { Keys.F,               "F" },
+            { Keys.G,               "G" },
+            { Keys.H,               "H" },
+            { Keys.I,               "I" },
+            { Keys.J,               "J" },
+            { Keys.K,               "K" },
+            { Keys.L,               "L" },
+            { Keys.M,               "M" },
+            { Keys.N,               "N" },
+            { Keys.O,               "O" },
+            { Keys.P,               "P" },
+            { Keys.Q,               "Q" },
+            { Keys.R,               "R" },
+            { Keys.S,               "S" },
+            { Keys.T,               "T" },
+            { Keys.U,               "U" },
+            { Keys.V,               "V" },
+            { Keys.W,               "W" },
+            { Keys.X,               "X" },
+            { Keys.Y,               "Y" },
+            { Keys.Z,               "Z" },
+        };
+
+        /// <summary>
+        /// Словарь символов нижнего регистра (клавиша символа = символ)
+        /// </summary>
+        private readonly Dictionary<Keys, string> lowercaseSymbolByKey = new Dictionary<Keys, string>()
+        {
+            { Keys.Divide,          "/" },
+            { Keys.Multiply,        "*" },
+            { Keys.Subtract,        "-" },
+            { Keys.Add,             "+" },
+            { Keys.Decimal,         "." },
+            { Keys.NumPad1,         "1" },
+            { Keys.NumPad2,         "2" },
+            { Keys.NumPad3,         "3" },
+            { Keys.NumPad4,         "4" },
+            { Keys.NumPad5,         "5" },
+            { Keys.NumPad6,         "6" },
+            { Keys.NumPad7,         "7" },
+            { Keys.NumPad8,         "8" },
+            { Keys.NumPad9,         "9" },
+            { Keys.NumPad0,         "0" },
+            { Keys.D1,              "1" },
+            { Keys.D2,              "2" },
+            { Keys.D3,              "3" },
+            { Keys.D4,              "4" },
+            { Keys.D5,              "5" },
+            { Keys.D6,              "6" },
+            { Keys.D7,              "7" },
+            { Keys.D8,              "8" },
+            { Keys.D9,              "9" },
+            { Keys.D0,              "0" },
+            { Keys.Oemtilde,        "`" },
+            { Keys.OemMinus,        "-" },
+            { Keys.Oemplus,         "=" },
+            { Keys.OemOpenBrackets, "[" },
+            { Keys.Oem6,            "]" },
+            { Keys.Oem1,            ";" },
+            { Keys.Oem7,            "'" },
+            { Keys.Oem5,            "\\" },
+            { Keys.Oemcomma,        "," },
+            { Keys.OemPeriod,       "." },
+            { Keys.OemQuestion,     "/" },
+            { Keys.A,               "a" },
+            { Keys.B,               "b" },
+            { Keys.C,               "c" },
+            { Keys.D,               "d" },
+            { Keys.E,               "e" },
+            { Keys.F,               "f" },
+            { Keys.G,               "g" },
+            { Keys.H,               "h" },
+            { Keys.I,               "i" },
+            { Keys.J,               "j" },
+            { Keys.K,               "k" },
+            { Keys.L,               "l" },
+            { Keys.M,               "m" },
+            { Keys.N,               "n" },
+            { Keys.O,               "o" },
+            { Keys.P,               "p" },
+            { Keys.Q,               "q" },
+            { Keys.R,               "r" },
+            { Keys.S,               "s" },
+            { Keys.T,               "t" },
+            { Keys.U,               "u" },
+            { Keys.V,               "v" },
+            { Keys.W,               "w" },
+            { Keys.X,               "x" },
+            { Keys.Y,               "y" },
+            { Keys.Z,               "z" },
+        };
+
+        /// <summary>
+        /// Словарь символов верхнего регистра (код символа = символ)
+        /// </summary>
+        private readonly Dictionary<int, string> uppercaseSymbolByKeyCode = new Dictionary<int, string>()
         {
             { 111, "/" },
             { 106, "*" },
@@ -76,7 +218,10 @@ namespace Crypto
             { 90, "Z" },
         };
 
-        private readonly Dictionary<int, string> lowercaseKeySymbol = new Dictionary<int, string>()
+        /// <summary>
+        /// Словарь символов нижнего регистра (код символа = символ)
+        /// </summary>
+        private readonly Dictionary<int, string> lowercaseSymbolByKeyCode = new Dictionary<int, string>()
         {
             { 111, "/" },
             { 106, "*" },
@@ -142,24 +287,43 @@ namespace Crypto
             { 90, "z" },
         };
 
+        /// <summary>
+        /// Код символа с указанием регистра клавиатуры
+        /// </summary>
         public class CharCode
         {
             public bool UpperCase { get; set; } = false;
             public int Code { get; set; } = 0;
         }
 
+        /// <summary>
+        /// Коды символов с указанием регистра клавиатуры
+        /// </summary>
         public List<CharCode> charCodes { get; set; } = new List<CharCode>();
 
+        /// <summary>
+        /// Символы строкой
+        /// </summary>
         public string value { get; private protected set; } = string.Empty;
-        public string valueRepresentation { get; protected set; } = string.Empty;
+
+        /// <summary>
+        /// Символы
+        /// </summary>
         public List<string> characters { get; private protected set; } = new List<string>();
-        public List<int> characterСodes { get; private protected set; } = new List<int>();
+
+        /// <summary>
+        /// Массив блоков штрихкода формата GS1 DataMatrix
+        /// </summary>
         public List<string> gs1Blocks { get; private protected set; } = new List<string>();
 
-        public void processCharacters(int lineBreakSymbolCode = 13, int gs1SymbolCode = 29)
+        /// <summary>
+        /// Разобрать полученные данные от сканера штрихкода
+        /// </summary>
+        /// <param name="lineBreakSymbolCode">Код символа переноса строки</param>
+        /// <param name="gs1SymbolCode">Код символа GS1 DataMatrix</param>
+        public void ParseReceivedData(int lineBreakSymbolCode = 13, int gs1SymbolCode = 29)
         {
             value = string.Empty;
-            valueRepresentation = string.Empty;
             characters.Clear();
             gs1Blocks.Clear();
 
@@ -176,16 +340,15 @@ namespace Crypto
                         gs1Blocks.Add(gs1Block);
 
                     gs1Block = string.Empty;
-
                     break;
                 }
 
                 string ch;
 
                 if (charCode.UpperCase)
-                    uppercaseKeySymbol.TryGetValue(charCode.Code, out ch);
+                    uppercaseSymbolByKeyCode.TryGetValue(charCode.Code, out ch);
                 else
-                    lowercaseKeySymbol.TryGetValue(charCode.Code, out ch);
+                    lowercaseSymbolByKeyCode.TryGetValue(charCode.Code, out ch);
 
                 if (charCode.Code == gs1SymbolCode)
                 {
@@ -203,44 +366,39 @@ namespace Crypto
             }
         }
 
-        //public void Deconstruct(out string value)
-        //{
-        //    value = this.value;
-        //}
+        /// <summary>
+        /// Сбросить полученные данные от сканера штрихкода
+        /// </summary>
+        public void ResetReceivedData()
+        {
+            value = string.Empty;
+            charCodes.Clear();
+            characters.Clear();
+            gs1Blocks.Clear();
+        }
 
-        //public void Deconstruct(out string value, out string valueRepresentation)
-        //{
-        //    value = this.value;
-        //    valueRepresentation = this.valueRepresentation;
-        //}
-
-        //public void Deconstruct(out string value, out string valueRepresentation, out List<string> characters)
-        //{
-        //    value = this.value;
-        //    valueRepresentation = this.valueRepresentation;
-        //    characters = this.characters;
-        //}
-
-        //public void Deconstruct(out string value, out string valueRepresentation, out List<string> characters, out List<int> characterСodes)
-        //{
-        //    value = this.value;
-        //    valueRepresentation = this.valueRepresentation;
-        //    characters = this.characters;
-        //    characterСodes = this.characterСodes;
-        //}
-
-        //public void Deconstruct(out string value, out string valueRepresentation, out List<string> characters, out List<int> characterСodes, out List<string> gs1Blocks)
-        //{
-        //    value = this.value;
-        //    valueRepresentation = this.valueRepresentation;
-        //    characters = this.characters;
-        //    characterСodes = this.characterСodes;
-        //    gs1Blocks = this.gs1Blocks;
-        //}
-
+        /// <summary>
+        /// Возвращает строку, представляющую полученные данные от сканера штрихкода
+        /// </summary>
+        /// <returns>Строка, представляющая полученные данные от сканера штрихкода</returns>
         public override string ToString()
         {
-            return valueRepresentation;
+            string representation = string.Empty;
+
+            if (gs1Blocks.Count > 1)
+            {
+                for (int i = 0; i < gs1Blocks.Count; i++)
+                {
+                    representation += gs1Blocks[i];
+                    representation += i < gs1Blocks.Count-1 ? " (GS1) " : string.Empty;
+                }
+            }
+            else
+            {
+                representation = value;
+            }
+
+            return representation;
         }
     }
 }

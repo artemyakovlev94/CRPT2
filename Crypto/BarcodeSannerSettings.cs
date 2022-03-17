@@ -146,11 +146,11 @@ namespace Crypto
                 if (TestConnection)
                 {
                     rtb_Test.Focus();
-                    barcodeScanner2.Notify += BarcodeNotify;
+                    barcodeScanner2.NotifyReceivedData += NotifyReceivedData;
                 }
                 else
                 {
-                    barcodeScanner2.Notify -= BarcodeNotify;
+                    barcodeScanner2.NotifyReceivedData -= NotifyReceivedData;
                 }   
             }
             else
@@ -204,18 +204,12 @@ namespace Crypto
         private void BarcodeSannerSettings_KeyUp(object sender, KeyEventArgs e)
         {
             if (TestConnection && cb_Ports.SelectedItem.ToString() == "HID")
-                barcodeScanner2.KeyEvent(e);
+                barcodeScanner2.ReceivedDataEvent(e);
         }
 
-        private void BarcodeNotify(BarcodeData barcodeData)
+        private void NotifyReceivedData(BarcodeData barcodeData)
         {
             rtb_Test.Text += string.Format("{0}{1}", barcodeData.ToString(), Environment.NewLine);
-
-            foreach (string gs1Block in barcodeData.gs1Blocks)
-            {
-                MessageBox.Show(gs1Block);
-            }
-            
         }
     }
 }

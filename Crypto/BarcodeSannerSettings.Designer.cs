@@ -196,6 +196,7 @@
             this.rtb_Test.Size = new System.Drawing.Size(386, 96);
             this.rtb_Test.TabIndex = 10;
             this.rtb_Test.Text = "";
+            this.rtb_Test.WordWrap = false;
             // 
             // serialPortBarcodeScaner
             // 
