@@ -69,13 +69,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BarcodeData.cs" />
+    <Compile Include="BarcodeData4.cs" />
     <Compile Include="BarcodeSannerSettings.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="BarcodeSannerSettings.Designer.cs">
       <DependentUpon>BarcodeSannerSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="BarcodeScanner4.cs" />
     <Compile Include="BarcodeScanner2.cs" />
+    <Compile Include="BarcodeScanner3.cs" />
     <Compile Include="CRPT.cs" />
     <Compile Include="Crypto\SignerCertData.cs" />
     <Compile Include="Crypto\CryptoClass.cs" />

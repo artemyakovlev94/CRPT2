@@ -11,12 +11,17 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using System.Windows.Input;
+using static Crypto.BarcodeScanner3;
 
 namespace Crypto
 {
     public partial class BarcodeSannerSettings : Form
     {
         BarcodeScanner2 barcodeScanner2 = new BarcodeScanner2();
+
+        BarcodeScanner3 barcodeScanner3 = new BarcodeScanner3();
+
+        
 
         bool TestConnection = false;
 
@@ -139,6 +144,11 @@ namespace Crypto
             tb_GS1Symbol.Text = e.KeyData.ToString();
         }
 
+
+        
+
+        private BarcodeScanner4 barcodeScanner4 = new BarcodeScanner4(new BarcodeScanner4.BarcodeScannerParametres(Properties.Settings.Default.BarcodeScannerPort));
+
         private void btn_Test_Click(object sender, EventArgs e)
         {
             rtb_Test.Text = string.Empty;
@@ -149,53 +159,47 @@ namespace Crypto
 
             if (TestConnection)
             {
-                barcodeDatas.Clear();
                 rtb_Test.Focus();
 
-                barcodeScanner2.OpenConnection();
+                //barcodeScanner2.OpenConnection();
+
+                //barcodeScanner3.port = Properties.Settings.Default.BarcodeScannerPort;
+                //barcodeScanner3.CounterChanged += Raiser_CounterChanged;
+                //barcodeScanner3.OpenConnection();
+
+                barcodeScanner4.OpenConnection();
+                barcodeScanner4.DataRecieved += DataRecieved;
             }
             else
             {
-                barcodeScanner2.CloseConnection();
+                //barcodeScanner2.CloseConnection();
+
+                barcodeScanner4.DataRecieved -= DataRecieved;
+                barcodeScanner4.CloseConnection();
             }
+        }
 
-            //if (cb_Ports.SelectedItem.ToString() == "HID")
-            //{
-            //    if (TestConnection)
-            //    {
-            //        rtb_Test.Focus();
-            //        //this.KeyUp += barcodeScanner2.KeyUp;
-            //        //
-            //        barcodeScanner2.OpenConnection();
-            //        barcodeScanner2.NotifyReceivedData += NotifyReceivedData;
-            //    }
-            //    else
-            //    {
-            //        barcodeScanner2.CloseConnection();
-            //        barcodeScanner2.NotifyReceivedData -= NotifyReceivedData;
-            //        //this.KeyUp -= barcodeScanner2.KeyUp;
-            //        //
-            //    }
-            //}
-            //else
-            //{
-            //    if (TestConnection)
-            //    {
-            //        if (serialPortBarcodeScaner.IsOpen)
-            //            serialPortBarcodeScaner.Close();
+        private void DataRecieved(object sender, BarcodeScanner4.RecievedDataEventArgs e)
+        {
+            Invoke(new MethodInvoker(() =>
+            {
+                rtb_Test.Text += e.ToString();
 
-            //        serialPortBarcodeScaner.PortName = cb_Ports.SelectedItem.ToString();
-            //        serialPortBarcodeScaner.BaudRate = (int)cb_BaudRate.SelectedItem;
-            //        serialPortBarcodeScaner.DataBits = 8;
-            //        serialPortBarcodeScaner.Encoding = Encoding.ASCII;
-            //        serialPortBarcodeScaner.Open();
-            //    }
-            //    else
-            //    {
-            //        if (serialPortBarcodeScaner.IsOpen)                    
-            //            serialPortBarcodeScaner.Close();
-            //    }
-            //}
+                rtb_Test.Text += Environment.NewLine;
+            }));
+        }
+
+        private void Raiser_CounterChanged(object sender, EventBarcodeDataEventArgs e)
+        {
+            //var eventArg = e as EventBarcodeDataEventArgs;
+            this.Invoke(new MethodInvoker(() =>
+            {
+                foreach (var dt in e.Data)
+                {
+                    rtb_Test.Text += dt;
+                    rtb_Test.Text += Environment.NewLine; 
+                }
+            }));
         }
 
         #region COMScanner
@@ -225,22 +229,12 @@ namespace Crypto
         }
         #endregion
 
-        List<BarcodeData> barcodeDatas = new List<BarcodeData>();
         private void NotifyReceivedData(BarcodeData barcodeData)
         {
-            barcodeDatas.Add(barcodeData);
-
-            UpdateRTB();
-        }
-
-        private void UpdateRTB()
-        {
-            rtb_Test.Text = String.Empty;
-
-            foreach (var bd in barcodeDatas)
+            Invoke(new MethodInvoker(() =>
             {
-                rtb_Test.Text += string.Format("{0}{1}", bd.ToString(), Environment.NewLine);
-            }
+                rtb_Test.Text += string.Format("{0}{1}", barcodeData.ToString(), Environment.NewLine);
+            }));
         }
     }
 }

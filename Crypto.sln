@@ -5,8 +5,6 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crypto", "Crypto\Crypto.csproj", "{14E587BB-37B4-4B07-89BC-3909FB6FD87A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeScanner", "BarcodeScanner\BarcodeScanner.csproj", "{3425F20F-D9B9-479D-8234-CF4D39D79C7B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{14E587BB-37B4-4B07-89BC-3909FB6FD87A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14E587BB-37B4-4B07-89BC-3909FB6FD87A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14E587BB-37B4-4B07-89BC-3909FB6FD87A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3425F20F-D9B9-479D-8234-CF4D39D79C7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3425F20F-D9B9-479D-8234-CF4D39D79C7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3425F20F-D9B9-479D-8234-CF4D39D79C7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3425F20F-D9B9-479D-8234-CF4D39D79C7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
