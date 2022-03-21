@@ -4,6 +4,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Crypto
 {
@@ -90,7 +91,21 @@ namespace Crypto
                     return;
                 }
 
-                characters.Add(new Character(keyPressedArgs.KeyCode, upperCase, (char)keyPressedArgs.KeyCode));
+
+                string charAsString = string.Empty;
+
+                if (upperCase)
+                {
+                    uppercaseSymbolByKeyCode.TryGetValue(keyPressedArgs.KeyCode, out charAsString);
+                }
+                else
+                {
+                    lowercaseSymbolByKeyCode.TryGetValue(keyPressedArgs.KeyCode, out charAsString);
+                }
+
+
+
+                characters.Add(new Character(char.Parse(charAsString), upperCase, char.Parse(charAsString)));
 
                 if (keyPressedArgs.KeyCode == Parametres.LineBreakSymbol)
                 {
@@ -124,105 +139,6 @@ namespace Crypto
         }
 
 
-
-
-
-
-
-
-
-
-        //*************************************************************
-        public class Character
-        {
-            public int Code { get; set; }
-            public bool IsUpper { get; set; }
-            public bool IsLower { get; set; }
-            public char Value { get; set; }
-            public Character() : this(0) {}
-            public Character(int code) : this(code, false) { }
-            public Character(int code, bool isUpper) : this(code, isUpper, (char)0) { }
-            public Character(int code, bool isUpper, char ch)
-            {
-                Code = code;
-                IsUpper = isUpper;
-                IsLower = !isUpper;
-                Value = ch;
-            }
-        }
-
-        public class RecievedDataEventArgs : EventArgs
-        {
-            public List<Character> Characters { get; set; }
-            public string Value { get; set; }
-            public List<string> GS1Groups { get; set; }
-
-            public RecievedDataEventArgs(List<Character> characters) : this(characters, 13) { }
-            public RecievedDataEventArgs(List<Character> characters, int lineBreakChar) : this(characters, lineBreakChar, 119) { }
-            public RecievedDataEventArgs(List<Character> characters, int lineBreakChar, int gs1Char)
-            {
-                Characters = characters;
-
-                GS1Groups = new List<string>();
-
-                string gs1_group = string.Empty;
-                
-                Characters.ForEach(ch =>
-                {
-                    if (ch.Code == gs1Char)
-                    {
-                        if (!string.IsNullOrWhiteSpace(gs1_group))
-                            GS1Groups.Add(gs1_group);
-
-                        gs1_group = string.Empty;
-                    }
-
-                    if (!char.IsControl(ch.Value) && !char.IsWhiteSpace(ch.Value) && ch.Value != gs1Char)
-                    {
-                        Value += ch.IsLower ? char.ToLower(ch.Value) : char.ToUpper(ch.Value);
-                        gs1_group += ch.IsLower ? char.ToLower(ch.Value) : char.ToUpper(ch.Value);
-                    }
-                });
-
-                if (!string.IsNullOrWhiteSpace(gs1_group))
-                    GS1Groups.Add(gs1_group);
-            }
-
-            public override string ToString()
-            {
-                string gs1_string = string.Empty;
-
-                if (GS1Groups.Count == 0)
-                    return Value;
-
-                for (int i = 0; i < GS1Groups.Count; i++)
-                {
-                    gs1_string += GS1Groups[i];
-                    gs1_string += i < GS1Groups.Count - 1 ? " (GS) " : string.Empty;
-                }
-
-                return gs1_string;
-            }
-        }
-
-        public class BarcodeScannerParametres
-        {
-            internal string Port { get; set; }
-            internal int BaudRate { get; set; }
-            internal int LineBreakSymbol { get; set; }
-            internal int GS1Symbol { get; set; }
-            public BarcodeScannerParametres() : this(PORT_NAME_HID) { }
-            public BarcodeScannerParametres(string port) : this(port, 9600) { }
-            public BarcodeScannerParametres(string port, int baudRate) : this(port, baudRate, 13) { }
-            public BarcodeScannerParametres(string port, int baudRate, int lineBreakSymbol) : this(port, baudRate, lineBreakSymbol, 119) { }
-            public BarcodeScannerParametres(string port, int baudRate, int lineBreakSymbol, int gs1Symbol)
-            {
-                Port = port;
-                BaudRate = baudRate;
-                LineBreakSymbol = lineBreakSymbol;
-                GS1Symbol = Port == PORT_NAME_HID ? gs1Symbol : 29;
-            }
-        }
 
         /// <summary>
         /// Словарь символов верхнего регистра (код символа = символ)
@@ -362,6 +278,239 @@ namespace Crypto
             { 90, "z" },
         };
 
+        /// <summary>
+        /// Словарь символов верхнего регистра (клавиша символа = символ)
+        /// </summary>
+        private readonly Dictionary<Keys, string> uppercaseSymbolByKey = new Dictionary<Keys, string>()
+        {
+            { Keys.Divide,          "/" },
+            { Keys.Multiply,        "*" },
+            { Keys.Subtract,        "-" },
+            { Keys.Add,             "+" },
+            { Keys.Decimal,         "." },
+            { Keys.NumPad1,         "1" },
+            { Keys.NumPad2,         "2" },
+            { Keys.NumPad3,         "3" },
+            { Keys.NumPad4,         "4" },
+            { Keys.NumPad5,         "5" },
+            { Keys.NumPad6,         "6" },
+            { Keys.NumPad7,         "7" },
+            { Keys.NumPad8,         "8" },
+            { Keys.NumPad9,         "9" },
+            { Keys.NumPad0,         "0" },
+            { Keys.D1,              "!" },
+            { Keys.D2,              "@" },
+            { Keys.D3,              "#" },
+            { Keys.D4,              "$" },
+            { Keys.D5,              "%" },
+            { Keys.D6,              "^" },
+            { Keys.D7,              "&" },
+            { Keys.D8,              "*" },
+            { Keys.D9,              "(" },
+            { Keys.D0,              ")" },
+            { Keys.Oemtilde,        "~" },
+            { Keys.OemMinus,        "_" },
+            { Keys.Oemplus,         "+" },
+            { Keys.OemOpenBrackets, "{" },
+            { Keys.Oem6,            "}" },
+            { Keys.Oem1,            ":" },
+            { Keys.Oem7,            "\"" },
+            { Keys.Oem5,            "|" },
+            { Keys.Oemcomma,        "<" },
+            { Keys.OemPeriod,       ">" },
+            { Keys.OemQuestion,     "?" },
+            { Keys.A,               "A" },
+            { Keys.B,               "B" },
+            { Keys.C,               "C" },
+            { Keys.D,               "D" },
+            { Keys.E,               "E" },
+            { Keys.F,               "F" },
+            { Keys.G,               "G" },
+            { Keys.H,               "H" },
+            { Keys.I,               "I" },
+            { Keys.J,               "J" },
+            { Keys.K,               "K" },
+            { Keys.L,               "L" },
+            { Keys.M,               "M" },
+            { Keys.N,               "N" },
+            { Keys.O,               "O" },
+            { Keys.P,               "P" },
+            { Keys.Q,               "Q" },
+            { Keys.R,               "R" },
+            { Keys.S,               "S" },
+            { Keys.T,               "T" },
+            { Keys.U,               "U" },
+            { Keys.V,               "V" },
+            { Keys.W,               "W" },
+            { Keys.X,               "X" },
+            { Keys.Y,               "Y" },
+            { Keys.Z,               "Z" },
+        };
 
+        /// <summary>
+        /// Словарь символов нижнего регистра (клавиша символа = символ)
+        /// </summary>
+        private readonly Dictionary<Keys, string> lowercaseSymbolByKey = new Dictionary<Keys, string>()
+        {
+            { Keys.Divide,          "/" },
+            { Keys.Multiply,        "*" },
+            { Keys.Subtract,        "-" },
+            { Keys.Add,             "+" },
+            { Keys.Decimal,         "." },
+            { Keys.NumPad1,         "1" },
+            { Keys.NumPad2,         "2" },
+            { Keys.NumPad3,         "3" },
+            { Keys.NumPad4,         "4" },
+            { Keys.NumPad5,         "5" },
+            { Keys.NumPad6,         "6" },
+            { Keys.NumPad7,         "7" },
+            { Keys.NumPad8,         "8" },
+            { Keys.NumPad9,         "9" },
+            { Keys.NumPad0,         "0" },
+            { Keys.D1,              "1" },
+            { Keys.D2,              "2" },
+            { Keys.D3,              "3" },
+            { Keys.D4,              "4" },
+            { Keys.D5,              "5" },
+            { Keys.D6,              "6" },
+            { Keys.D7,              "7" },
+            { Keys.D8,              "8" },
+            { Keys.D9,              "9" },
+            { Keys.D0,              "0" },
+            { Keys.Oemtilde,        "`" },
+            { Keys.OemMinus,        "-" },
+            { Keys.Oemplus,         "=" },
+            { Keys.OemOpenBrackets, "[" },
+            { Keys.Oem6,            "]" },
+            { Keys.Oem1,            ";" },
+            { Keys.Oem7,            "'" },
+            { Keys.Oem5,            "\\" },
+            { Keys.Oemcomma,        "," },
+            { Keys.OemPeriod,       "." },
+            { Keys.OemQuestion,     "/" },
+            { Keys.A,               "a" },
+            { Keys.B,               "b" },
+            { Keys.C,               "c" },
+            { Keys.D,               "d" },
+            { Keys.E,               "e" },
+            { Keys.F,               "f" },
+            { Keys.G,               "g" },
+            { Keys.H,               "h" },
+            { Keys.I,               "i" },
+            { Keys.J,               "j" },
+            { Keys.K,               "k" },
+            { Keys.L,               "l" },
+            { Keys.M,               "m" },
+            { Keys.N,               "n" },
+            { Keys.O,               "o" },
+            { Keys.P,               "p" },
+            { Keys.Q,               "q" },
+            { Keys.R,               "r" },
+            { Keys.S,               "s" },
+            { Keys.T,               "t" },
+            { Keys.U,               "u" },
+            { Keys.V,               "v" },
+            { Keys.W,               "w" },
+            { Keys.X,               "x" },
+            { Keys.Y,               "y" },
+            { Keys.Z,               "z" },
+        };
+
+
+
+
+
+
+        //*************************************************************
+        public class Character
+        {
+            public int Code { get; set; }
+            public bool IsUpper { get; set; }
+            public bool IsLower { get; set; }
+            public char Value { get; set; }
+            public Character() : this(0) {}
+            public Character(int code) : this(code, false) { }
+            public Character(int code, bool isUpper) : this(code, isUpper, (char)0) { }
+            public Character(int code, bool isUpper, char ch)
+            {
+                Code = code;
+                IsUpper = isUpper;
+                IsLower = !isUpper;
+                Value = ch;
+            }
+        }
+
+        public class RecievedDataEventArgs : EventArgs
+        {
+            public List<Character> Characters { get; set; }
+            public string Value { get; set; }
+            public List<string> GS1Groups { get; set; }
+
+            public RecievedDataEventArgs(List<Character> characters) : this(characters, 13) { }
+            public RecievedDataEventArgs(List<Character> characters, int lineBreakChar) : this(characters, lineBreakChar, 119) { }
+            public RecievedDataEventArgs(List<Character> characters, int lineBreakChar, int gs1Char)
+            {
+                Characters = characters;
+
+                GS1Groups = new List<string>();
+
+                string gs1_group = string.Empty;
+                
+                Characters.ForEach(ch =>
+                {
+                    if (ch.Code == gs1Char)
+                    {
+                        if (!string.IsNullOrWhiteSpace(gs1_group))
+                            GS1Groups.Add(gs1_group);
+
+                        gs1_group = string.Empty;
+                    }
+
+                    if (!char.IsControl(ch.Value) && !char.IsWhiteSpace(ch.Value) && ch.Value != gs1Char)
+                    {
+                        Value += ch.IsLower ? char.ToLower(ch.Value) : char.ToUpper(ch.Value);
+                        gs1_group += ch.IsLower ? char.ToLower(ch.Value) : char.ToUpper(ch.Value);
+                    }
+                });
+
+                if (!string.IsNullOrWhiteSpace(gs1_group))
+                    GS1Groups.Add(gs1_group);
+            }
+
+            public override string ToString()
+            {
+                string gs1_string = string.Empty;
+
+                if (GS1Groups.Count == 0)
+                    return Value;
+
+                for (int i = 0; i < GS1Groups.Count; i++)
+                {
+                    gs1_string += GS1Groups[i];
+                    gs1_string += i < GS1Groups.Count - 1 ? " (GS) " : string.Empty;
+                }
+
+                return gs1_string;
+            }
+        }
+
+        public class BarcodeScannerParametres
+        {
+            internal string Port { get; set; }
+            internal int BaudRate { get; set; }
+            internal int LineBreakSymbol { get; set; }
+            internal int GS1Symbol { get; set; }
+            public BarcodeScannerParametres() : this(PORT_NAME_HID) { }
+            public BarcodeScannerParametres(string port) : this(port, 9600) { }
+            public BarcodeScannerParametres(string port, int baudRate) : this(port, baudRate, 13) { }
+            public BarcodeScannerParametres(string port, int baudRate, int lineBreakSymbol) : this(port, baudRate, lineBreakSymbol, 119) { }
+            public BarcodeScannerParametres(string port, int baudRate, int lineBreakSymbol, int gs1Symbol)
+            {
+                Port = port;
+                BaudRate = baudRate;
+                LineBreakSymbol = lineBreakSymbol;
+                GS1Symbol = Port == PORT_NAME_HID ? gs1Symbol : 29;
+            }
+        }
     }
 }
