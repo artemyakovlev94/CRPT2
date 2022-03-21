@@ -77,6 +77,7 @@ namespace Crypto
             {
                 KeyPressedArgs keyPressedArgs = e as KeyPressedArgs;
 
+                
                 if (keyPressedArgs.KeyPressed == System.Windows.Input.Key.LeftCtrl || keyPressedArgs.KeyPressed == System.Windows.Input.Key.RightCtrl ||
                     keyPressedArgs.KeyPressed == System.Windows.Input.Key.LeftAlt || keyPressedArgs.KeyPressed == System.Windows.Input.Key.RightAlt)
                 {
@@ -165,6 +166,7 @@ namespace Crypto
                 GS1Groups = new List<string>();
 
                 string gs1_group = string.Empty;
+                
                 Characters.ForEach(ch =>
                 {
                     if (ch.Code == gs1Char)
@@ -175,10 +177,10 @@ namespace Crypto
                         gs1_group = string.Empty;
                     }
 
-                    if (!char.IsControl(ch.Value) && !char.IsWhiteSpace(ch.Value))
+                    if (!char.IsControl(ch.Value) && !char.IsWhiteSpace(ch.Value) && ch.Value != gs1Char)
                     {
-                        Value += ch.Value;
-                        gs1_group += ch.Value;
+                        Value += ch.IsLower ? char.ToLower(ch.Value) : char.ToUpper(ch.Value);
+                        gs1_group += ch.IsLower ? char.ToLower(ch.Value) : char.ToUpper(ch.Value);
                     }
                 });
 
